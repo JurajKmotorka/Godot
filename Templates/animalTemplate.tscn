@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://4orc7omrwwl6"]
+
+[ext_resource type="Script" path="res://Templates/animal_template.gd" id="1_sgmag"]
+[ext_resource type="SpriteFrames" uid="uid://chuthp5ptfcao" path="res://Art/Animals/Spriteframes/Hippo.tres" id="2_2yi13"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slskd"]
+size = Vector2(330.625, 262)
+
+[node name="Animal" type="Area2D"]
+script = ExtResource("1_sgmag")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.244375, 0.244375)
+sprite_frames = ExtResource("2_2yi13")
+autoplay = "default"
+frame = 1
+frame_progress = 0.146848
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_slskd")

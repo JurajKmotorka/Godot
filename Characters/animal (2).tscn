@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://cfw6gvxb6hksq"]
+
+[ext_resource type="Script" path="res://Characters/animal.gd" id="1_6g1fq"]
+[ext_resource type="Texture2D" uid="uid://d1xhn1cvwcuis" path="res://Art/Animals/Peacock/peacock_default.png" id="2_4qt15"]
+[ext_resource type="Texture2D" uid="uid://cw7rn8cq55wu6" path="res://Art/Animals/Peacock/peacock_idle.png" id="3_7l000"]
+[ext_resource type="Texture2D" uid="uid://nadblt2e0dgm" path="res://Art/Animals/Peacock/peacock_walk.png" id="4_42f8p"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e0hf2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4qt15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7l000")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4qt15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_42f8p")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7gqy0"]
+radius = 15.0
+height = 160.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8vwi7"]
+size = Vector2(145, 325)
+
+[node name="Animal" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+collision_layer = 4
+collision_mask = 6
+script = ExtResource("1_6g1fq")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_e0hf2")
+animation = &"walk"
+frame_progress = 0.499034
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-10, 40)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_7gqy0")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+visible = false
+position = Vector2(-2.5, -7.49999)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_8vwi7")

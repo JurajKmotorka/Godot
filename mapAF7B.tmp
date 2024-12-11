@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk56ofgqc7cb8"]
+
+[ext_resource type="SpriteFrames" uid="uid://brx6c3own08pi" path="res://Art/Animals/Spriteframes/Dog.tres" id="1_8q45f"]
+[ext_resource type="Script" path="res://player.gd" id="1_nx43w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d42ff"]
+size = Vector2(32, 16)
+
+[node name="Map" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_nx43w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+scale = Vector2(0.1875, 0.1875)
+sprite_frames = ExtResource("1_8q45f")
+frame_progress = 0.894199
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_d42ff")

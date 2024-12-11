@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://brx6c3own08pi"]
+
+[ext_resource type="Texture2D" uid="uid://m4wn1ccm1eq0" path="res://Art/Animals/Dog/dog-mini.png" id="1_exwpo"]
+[ext_resource type="Texture2D" uid="uid://bnh68n66x8kha" path="res://Art/Animals/Dog/dog-mini-walk.png" id="2_0lh5y"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_exwpo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0lh5y")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
