@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://k4ms5fhjvkj1"]
+
+[ext_resource type="Script" path="res://Characters/following_animal.gd" id="1_5vxgm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n08de"]
+
+[node name="FollowingAnimal" type="Node2D"]
+script = ExtResource("1_5vxgm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_n08de")

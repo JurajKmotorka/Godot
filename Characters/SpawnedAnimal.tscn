@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Characters/spawned_animal.gd" id="1_okjiu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3rdub"]
-size = Vector2(32, 22.25)
+size = Vector2(48, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_586v4"]
 
@@ -12,13 +12,14 @@ size = Vector2(64, 40)
 
 [node name="Animal" type="CharacterBody2D"]
 z_index = 2
+scale = Vector2(0.195, 0.195)
 collision_layer = 8
 collision_mask = 8
 script = ExtResource("1_okjiu")
 idle_speed = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3.125)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_3rdub")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
