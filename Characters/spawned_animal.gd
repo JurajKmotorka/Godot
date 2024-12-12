@@ -5,6 +5,7 @@ var animal_data: Dictionary # Stores the data for this animal
 @export var idle_speed: float = 1.0 # Speed of idle movement
 
 var original_position: Vector2 # The spawn position
+var player_in_area: bool = false
 var animal_id = 0
 func load_animal_data(key: int):
 	animal_data = AnimalDatabase.get_animal(key)
@@ -22,6 +23,11 @@ func _ready():
 	idle_movement()
 	# Connect the `body_entered` signal from Area2D to this script
 	$Area2D.body_entered.connect(_on_body_entered)
+	
+func _process(delta: float) -> void:
+	if player_in_area and Input.is_action_pressed("accept"): # 'I' is mapped to 'accept' by default
+		GlobalData.player_position = $Area2D.global_position
+		start_fight()
 
 # Idle movement with await
 func idle_movement() -> void:
@@ -43,7 +49,8 @@ func move_to(target: Vector2) -> void:
 func _on_body_entered(body):
 	if body.name == "Player":
 		print("Collision detected with Player!")
-		start_fight()
+		player_in_area = true
+		
 	else:
 		print("Collision detected with: %s" % body.name)
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://il3gxnnoln8x"]
 
 [ext_resource type="Script" path="res://character.gd" id="1_h6nbx"]
-[ext_resource type="SpriteFrames" uid="uid://dnitssao47j4o" path="res://Art/Animals/Spriteframes/Peacock.tres" id="2_gfwpu"]
+[ext_resource type="SpriteFrames" uid="uid://brx6c3own08pi" path="res://Art/Animals/Spriteframes/Dog.tres" id="2_rai8j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smkb6"]
 size = Vector2(40, 17)
@@ -12,20 +12,18 @@ position = Vector2(176, 112)
 collision_mask = 6
 slide_on_ceiling = false
 script = ExtResource("1_h6nbx")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(151, 105)
 scale = Vector2(0.195313, 0.195313)
-sprite_frames = ExtResource("2_gfwpu")
-animation = &"walk"
+sprite_frames = ExtResource("2_rai8j")
+animation = &"idle"
 
 [node name="Camera2D2" type="Camera2D" parent="."]
-position = Vector2(176, 112)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 16.0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(148, 112.5)
 shape = SubResource("RectangleShape2D_smkb6")

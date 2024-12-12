@@ -21,6 +21,7 @@ var animals = {
 		"max_health": 75,
 		"current_health": 75,
 		"attack_power": 25,
+		"sprite_frames": "res://Art/Animals/Spriteframes/Peacock.tres",
 		"moves": [
 			{"move": "Slash", "damage": 20, "precision": 70, "type": "offensive", "effect": null},
 			{"move": "Roar", "damage": 0, "precision": 100, "type": "debuff", "effect": "lowers_attack"},

@@ -996,6 +996,7 @@ tile_set = SubResource("TileSet_i2kyt")
 tile_set = SubResource("TileSet_6dffm")
 
 [node name="Player" parent="." instance=ExtResource("2_cefhn")]
+position = Vector2(176, -64)
 
 [node name="AnimalManager" type="Node2D" parent="."]
 script = ExtResource("5_oc2vj")
