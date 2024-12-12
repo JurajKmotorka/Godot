@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dnitssao47j4o"]
+
+[ext_resource type="Texture2D" uid="uid://chgn7jvmui65v" path="res://Art/Animals/Peacock/peacock-mini.png" id="1_1goox"]
+[ext_resource type="Texture2D" uid="uid://cwn4ll4x0jq3v" path="res://Art/Animals/Peacock/peacock-mini-walk.png" id="2_jb6ig"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1goox")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_jb6ig")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

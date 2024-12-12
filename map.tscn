@@ -995,7 +995,7 @@ tile_set = SubResource("TileSet_i2kyt")
 [node name="TileMapLayer2" type="TileMapLayer" parent="TileMapPack"]
 tile_set = SubResource("TileSet_6dffm")
 
-[node name="Character" parent="." instance=ExtResource("2_cefhn")]
+[node name="Player" parent="." instance=ExtResource("2_cefhn")]
 position = Vector2(176, -64)
 
 [node name="AnimalManager" type="Node2D" parent="."]
@@ -1003,4 +1003,5 @@ script = ExtResource("5_oc2vj")
 
 [node name="Animal" parent="AnimalManager" instance=ExtResource("5_vs8oh")]
 z_index = 10
-position = Vector2(160, 232)
+position = Vector2(161, 232)
+scale = Vector2(0.1, 0.1)

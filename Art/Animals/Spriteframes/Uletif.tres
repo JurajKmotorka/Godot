@@ -1,14 +1,18 @@
-[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://b6gnsik62gmll"]
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://b6gnsik62gmll"]
 
-[ext_resource type="Texture2D" uid="uid://cmtpi8nxhmfmf" path="res://Art/Animals/Uletif/Untitled-1.png" id="1_5qtlk"]
+[ext_resource type="Texture2D" uid="uid://biq1dsm44j7iw" path="res://Art/Animals/Uletif/Uletif-mini.png" id="1_5es2y"]
+[ext_resource type="Texture2D" uid="uid://bkme8vbtusx80" path="res://Art/Animals/Uletif/Uletif-mini-walk.png" id="2_83nlp"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_5qtlk")
+"texture": ExtResource("1_5es2y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_83nlp")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"walk",
 "speed": 5.0
 }]

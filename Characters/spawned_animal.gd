@@ -5,11 +5,13 @@ var animal_data: Dictionary # Stores the data for this animal
 @export var idle_speed: float = 1.0 # Speed of idle movement
 
 var original_position: Vector2 # The spawn position
-
-func load_animal_data(animal_name: int, data: Dictionary):
+var animal_id = 0
+func load_animal_data(key: int):
+	animal_data = AnimalDatabase.get_animal(key)
 	print("loaded spriteframes:")
-	print(data["sprite_frames"])
-	$AnimatedSprite2D.sprite_frames = load(data["sprite_frames"])
+	print(animal_data["sprite_frames"])
+	$AnimatedSprite2D.sprite_frames = load(animal_data["sprite_frames"])
+	animal_id = key
 	
 
 	original_position = global_position
@@ -18,6 +20,8 @@ func load_animal_data(animal_name: int, data: Dictionary):
 
 func _ready():
 	idle_movement()
+	# Connect the `body_entered` signal from Area2D to this script
+	$Area2D.body_entered.connect(_on_body_entered)
 
 # Idle movement with await
 func idle_movement() -> void:
@@ -36,19 +40,25 @@ func move_to(target: Vector2) -> void:
 		move_and_slide()
 		await get_tree().process_frame # Wait for the next frame
 
-# Handle collision with the player
-func _on_Player_body_entered(body: Node) -> void:
+func _on_body_entered(body):
 	if body.name == "Player":
+		print("Collision detected with Player!")
 		start_fight()
+	else:
+		print("Collision detected with: %s" % body.name)
+
 
 # Start the fight scene
 func start_fight() -> void:
 	# Load the fight scene
-	var fight_scene = load("res://scenes/FightScene.tscn").instantiate()
-	
-	# Transition to the fight scene
-	get_tree().change_scene_to_instance(fight_scene)
-	
+	var fight_scene = load("res://BattleScene.tscn").instantiate()
+	var current_scene = get_tree().current_scene
+# Replace the current scene with the new scene
+	if current_scene:
+		current_scene.queue_free()  # Remove the current scene from the tree
+	get_tree().root.add_child(fight_scene)  # Add the new scene as a child of the root
+	get_tree().current_scene = fight_scene  # Set the new scene as the current scene
+
 	# Pass animal data to the fight scene
 	if fight_scene.has_method("set_enemy_data"):
-		fight_scene.set_enemy_data(animal_data)
+		fight_scene.set_enemy_data(animal_id)
