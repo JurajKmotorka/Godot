@@ -9,6 +9,6 @@ animations = [{
 "texture": ExtResource("1_5qtlk")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 5.0
 }]

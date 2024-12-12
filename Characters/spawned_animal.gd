@@ -1,55 +1,54 @@
-extends Node2D
+extends CharacterBody2D
 
-@export var animal_scene_path: String = "res://Characters/SpawnedAnimal.tscn" # Path to the animal scene
-@export var animal_database_path: String = "res://scripts/animal_database.gd" # Path to the database
+var animal_data: Dictionary # Stores the data for this animal
+@export var idle_range: float = 10.0 # Max distance for idle movement
+@export var idle_speed: float = 1.0 # Speed of idle movement
 
-@onready var spawn_points = $SpawnPoints
-@onready var animal_container = $AnimalContainer
+var original_position: Vector2 # The spawn position
 
-# List of all animal names in the database
-var animal_names = []
+func load_animal_data(animal_name: int, data: Dictionary):
+	print("loaded spriteframes:")
+	print(data["sprite_frames"])
+	$AnimatedSprite2D.sprite_frames = load(data["sprite_frames"])
+	
+
+	original_position = global_position
+	self.visible = true # Make the animal visible
+	print("data received")
 
 func _ready():
-	# Load the animal database script
-	var animal_database = load(animal_database_path).new()
+	idle_movement()
+
+# Idle movement with await
+func idle_movement() -> void:
+	await get_tree().create_timer(1.0).timeout
+	while true:
+		# Random offset within idle range
+		var target_position = original_position + Vector2(randf_range(-idle_range, idle_range), randf_range(-idle_range, idle_range))
+		await move_to(target_position)
+		await get_tree().create_timer(randf_range(1.0, 3.0)).timeout
+
+# Smooth movement towards a target
+func move_to(target: Vector2) -> void:
+	while global_position.distance_to(target) > 1.0:
+		var direction = (target - global_position).normalized()
+		velocity = direction * idle_speed
+		move_and_slide()
+		await get_tree().process_frame # Wait for the next frame
+
+# Handle collision with the player
+func _on_Player_body_entered(body: Node) -> void:
+	if body.name == "Player":
+		start_fight()
+
+# Start the fight scene
+func start_fight() -> void:
+	# Load the fight scene
+	var fight_scene = load("res://scenes/FightScene.tscn").instantiate()
 	
-	# Populate the list of animal names
-	animal_names = animal_database.animals.keys()
-	if animal_names.size() == 0:
-		print("Animal database is empty!")
-		return
-
-func spawn_random_animal():
-	# Load the animal database script
-	var animal_database = load(animal_database_path).new()
-
-	# Pick a random animal name from the database
-	var random_name = animal_names[randi() % animal_names.size()]
-
-	# Get the animal data using the name
-	var random_animal_data = animal_database.get_animal(random_name)
-
-	# Load the animal scene
-	var animal_scene = load(animal_scene_path)
-	if animal_scene == null:
-		print("Failed to load animal scene: %s" % animal_scene_path)
-		return
-
-	# Instance the animal scene
-	var animal_instance = animal_scene.instantiate()
-
-	# Assign the animal data to the new instance
-	if animal_instance.has_method("set_animal_data"):
-		animal_instance.set_animal_data(random_animal_data)
-
-	# Get all spawn points and pick a random one
-	var points = spawn_points.get_children()
-	if points.size() > 0:
-		var random_spawn_index = randi() % points.size()
-		var spawn_point = points[random_spawn_index]
-		animal_instance.global_position = spawn_point.global_position
-
-		# Add the new animal to the container
-		animal_container.add_child(animal_instance)
-	else:
-		print("No spawn points found.")
+	# Transition to the fight scene
+	get_tree().change_scene_to_instance(fight_scene)
+	
+	# Pass animal data to the fight scene
+	if fight_scene.has_method("set_enemy_data"):
+		fight_scene.set_enemy_data(animal_data)

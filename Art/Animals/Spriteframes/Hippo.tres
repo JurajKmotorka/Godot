@@ -13,6 +13,6 @@ animations = [{
 "texture": ExtResource("2_rx50r")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 5.0
 }]
