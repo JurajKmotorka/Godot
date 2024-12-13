@@ -1018,3 +1018,6 @@ z_index = 10
 position = Vector2(520, 480)
 
 [node name="AnimalChain" parent="." instance=ExtResource("6_x2iac")]
+max_following = null
+trail_length = null
+trail_spacing = null

@@ -1,30 +1,66 @@
 extends Node2D
 
-@export var max_following: int = 4  # Maximum number of animals that can follow the player
-var following_animals: Array = [1,3,2,4]  # List to store animals that are currently following the player
+@export var max_following: int = 4
+var following_animals: Array = [1, 3, 2, 4]  # Animal IDs to spawn
+var follower_nodes: Array = []  # Spawned follower nodes
+var trails: Array = []  # Stores positions for the trail system
 
-# Function to spawn all followers based on the following_animals array
-func spawn_all_followers() -> void:
-	for i in range(following_animals.size()):
-		spawn_follower(following_animals[i], i)
+@export var trail_length: int = 50  # How many positions to store in the trail
+@export var trail_spacing: int = 10  # Spacing between follower positions in the trail (in indices)
 
-# Function to spawn a single animal as a follower
-func spawn_follower(animal_id: int, position_index: int) -> void:
-	var animal_scene = preload("res://Characters/following_animal.tscn").instantiate()
-	
-	   
-	# Pass the animal data to the spawned animal
-	animal_scene.load_animal_id(animal_id)
-	
-	# Add the spawned animal as a child of the AnimalChain
-	add_child(animal_scene)
-	
-	# Position the animal based on its index in the following array
-	var offset = Vector2(-40, 0) * position_index  # Adjust offset to suit your game
-	animal_scene.global_position = global_position + offset
+var player: Node2D = null  # Reference to the Player node
 
-	print("Spawned follower with ID %d at position index %d" % [animal_id, position_index])
+func _ready() -> void:
+	# Find the player node dynamically
+	player = get_parent().get_node("Player")
+	if not player:
+		print("Error: Player node not found!")
+		return
 
-func _ready():
-	# Spawn all followers when the game starts or this node is added to the scene tree
 	spawn_all_followers()
+
+func spawn_all_followers() -> void:
+	# Spawn all follower animals
+	for animal_id in following_animals:
+		spawn_follower(animal_id)
+
+func spawn_follower(animal_id: int) -> void:
+	# Load and instantiate the animal scene
+	var animal_scene = preload("res://Characters/following_animal.tscn").instantiate()
+	animal_scene.load_animal_id(animal_id)
+	add_child(animal_scene)
+
+	# Position the follower behind the previous follower or player
+	if follower_nodes.is_empty():
+		# Place first follower behind the player
+		animal_scene.global_position = player.global_position - Vector2(20, 0)
+	else:
+		# Place subsequent followers relative to the last one
+		var last_follower = follower_nodes[follower_nodes.size() - 1]
+		animal_scene.global_position = last_follower.global_position - Vector2(20, 0)
+
+	# Add the new follower to the list
+	follower_nodes.append(animal_scene)
+
+func _process(delta: float) -> void:
+	if not player or follower_nodes.is_empty():
+		return
+
+	# Update the trail with the player's position
+	trails.append(player.global_position)
+	if trails.size() > trail_length:
+		trails.pop_front()
+
+	# Move each follower along the trail
+	for i in range(follower_nodes.size()):
+		var follower = follower_nodes[i]
+		var trail_index = (i + 1) * trail_spacing
+
+		# If there is enough trail data, move the follower
+		if trail_index < trails.size():
+			follower.global_position = trails[trail_index]
+		else:
+			# If not enough trail data, place the follower behind the previous one
+			if i > 0:
+				var previous_follower = follower_nodes[i - 1]
+				follower.global_position = previous_follower.global_position - Vector2(20, 0)

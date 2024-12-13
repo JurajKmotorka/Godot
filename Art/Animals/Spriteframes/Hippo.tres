@@ -1,18 +1,26 @@
 [gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://chuthp5ptfcao"]
 
-[ext_resource type="Texture2D" uid="uid://dvc46pku4gq8l" path="res://Art/Animals/Hippo/hippo.png" id="1_i8eq5"]
-[ext_resource type="Texture2D" uid="uid://ccx0df7ausfd3" path="res://Art/Animals/Hippo/hippo_idle.png" id="2_rx50r"]
+[ext_resource type="Texture2D" uid="uid://cqgn4mxgik6kf" path="res://Art/Animals/Hippo/hippo-mini.png" id="1_fuimm"]
+[ext_resource type="Texture2D" uid="uid://dp2dpyltcyyqe" path="res://Art/Animals/Hippo/hippo-mini-walk.png" id="2_ssmwu"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_i8eq5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_rx50r")
+"texture": ExtResource("1_fuimm")
 }],
 "loop": true,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fuimm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ssmwu")
+}],
+"loop": true,
+"name": &"walk",
 "speed": 5.0
 }]

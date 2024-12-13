@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 var animal_data: Dictionary  # To store the data passed from the AnimalChain
 
