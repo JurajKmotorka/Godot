@@ -52,6 +52,18 @@ var animals = {
 			{"move": "Bite", "damage": 25, "precision": 90, "type": "offensive", "effect": null}
 		],
 	},
+	5: {
+		"animal_name": "Amphisbaena",  # Renamed 'animal' to 'animal_name'
+		"class": "Serpent",
+		"max_health": 200,
+		"current_health": 200,
+		"attack_power": 40,
+		"sprite_frames": "res://Art/Animals/Spriteframes/Amphisbaena.tres",
+		"moves": [
+			{"move": "Bite", "damage": 25, "precision": 65, "type": "offensive", "effect": null},
+			{"move": "Spit", "damage": 20, "precision": 90, "type": "offensive", "effect": null}
+		],
+	},
 }
 
 # Function to add an animal to the database

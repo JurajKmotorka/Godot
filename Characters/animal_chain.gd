@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var max_following: int = 4
-var following_animals: Array = [1, 1, 1, 1]  # Animal IDs to spawn
+var following_animals: Array = [4, 1, 3, 2]  # Animal IDs to spawn
 var follower_nodes: Array = []  # Spawned follower nodes
 
 @export var min_distance: float = 30.0  # Minimum distance between followers

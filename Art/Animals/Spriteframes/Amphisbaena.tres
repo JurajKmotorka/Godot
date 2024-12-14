@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://cv706848br6op"]
+
+[ext_resource type="Texture2D" uid="uid://dj2w2f3rb0u74" path="res://Art/Animals/Amphisbaena/amphisbaena-mini.png" id="1_etpgu"]
+[ext_resource type="Texture2D" uid="uid://ca4jj6022i58y" path="res://Art/Animals/Amphisbaena/amphisbaena-mini-walk.png" id="2_isd65"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_etpgu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_etpgu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_isd65")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

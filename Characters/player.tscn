@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://il3gxnnoln8x"]
 
 [ext_resource type="Script" path="res://character.gd" id="1_h6nbx"]
-[ext_resource type="SpriteFrames" uid="uid://chuthp5ptfcao" path="res://Art/Animals/Spriteframes/Hippo.tres" id="2_tbi55"]
+[ext_resource type="SpriteFrames" uid="uid://cv706848br6op" path="res://Art/Animals/Spriteframes/Amphisbaena.tres" id="2_m28yu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smkb6"]
 size = Vector2(40, 17)
@@ -17,7 +17,7 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.195313, 0.195313)
-sprite_frames = ExtResource("2_tbi55")
+sprite_frames = ExtResource("2_m28yu")
 animation = &"walk"
 
 [node name="Camera2D2" type="Camera2D" parent="."]
