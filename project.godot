@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 AnimalDatabase="*res://scripts/animal_database.gd"
+MoveDatabase="*res://scripts/move_database.gd"
 GlobalData="*res://scripts/global_data.gd"
 
 [display]
