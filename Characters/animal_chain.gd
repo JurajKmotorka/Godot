@@ -1,12 +1,14 @@
 extends Node2D
 
 @export var max_following: int = 4
-var following_animals: Array = [1, 3, 2, 4]  # Animal IDs to spawn
+var following_animals: Array = [1, 1, 1, 1]  # Animal IDs to spawn
 var follower_nodes: Array = []  # Spawned follower nodes
-var trails: Array = []  # Stores positions for the trail system
 
-@export var trail_length: int = 50  # How many positions to store in the trail
-@export var trail_spacing: int = 10  # Spacing between follower positions in the trail (in indices)
+@export var min_distance: float = 30.0  # Minimum distance between followers
+@export var max_distance: float = 60.0  # Maximum distance before speed is increased
+@export var move_speed: float = 200.0  # Base movement speed of followers
+@export var smoothing_factor: float = 1  # Smoothing for movement to reduce jittering
+@export var buffer_zone: float = 10.0  # Buffer zone around the target position
 
 var player: Node2D = null  # Reference to the Player node
 
@@ -30,14 +32,14 @@ func spawn_follower(animal_id: int) -> void:
 	animal_scene.load_animal_id(animal_id)
 	add_child(animal_scene)
 
-	# Position the follower behind the previous follower or player
+	# Position the follower behind the player or the previous follower
 	if follower_nodes.is_empty():
 		# Place first follower behind the player
-		animal_scene.global_position = player.global_position - Vector2(20, 0)
+		animal_scene.global_position = player.global_position - Vector2(min_distance, 0)
 	else:
-		# Place subsequent followers relative to the last one
+		# Place subsequent followers behind the last follower
 		var last_follower = follower_nodes[follower_nodes.size() - 1]
-		animal_scene.global_position = last_follower.global_position - Vector2(20, 0)
+		animal_scene.global_position = last_follower.global_position - Vector2(min_distance, 0)
 
 	# Add the new follower to the list
 	follower_nodes.append(animal_scene)
@@ -46,21 +48,34 @@ func _process(delta: float) -> void:
 	if not player or follower_nodes.is_empty():
 		return
 
-	# Update the trail with the player's position
-	trails.append(player.global_position)
-	if trails.size() > trail_length:
-		trails.pop_front()
-
-	# Move each follower along the trail
+	# Update the position of each follower
 	for i in range(follower_nodes.size()):
 		var follower = follower_nodes[i]
-		var trail_index = (i + 1) * trail_spacing
+		var leader_position: Vector2
 
-		# If there is enough trail data, move the follower
-		if trail_index < trails.size():
-			follower.global_position = trails[trail_index]
+		if i == 0:
+			# The first follower follows the player
+			leader_position = player.global_position
 		else:
-			# If not enough trail data, place the follower behind the previous one
-			if i > 0:
-				var previous_follower = follower_nodes[i - 1]
-				follower.global_position = previous_follower.global_position - Vector2(20, 0)
+			# Subsequent followers follow the previous follower
+			var previous_follower = follower_nodes[i - 1]
+			leader_position = previous_follower.global_position
+
+		# Calculate the distance to the leader
+		var current_distance = follower.global_position.distance_to(leader_position)
+
+		# Apply buffer zone logic
+		if current_distance > min_distance + buffer_zone:
+			# Move towards the leader if outside the buffer zone
+			var direction = (leader_position - follower.global_position).normalized()
+			var speed_factor = lerp(0.0, move_speed, (current_distance - min_distance) / (max_distance - min_distance))
+			follower.global_position += direction * speed_factor * delta
+		elif current_distance < min_distance:
+			# Move slightly away to maintain minimum distance
+			var direction = (follower.global_position - leader_position).normalized()
+			follower.global_position = leader_position + direction * min_distance
+
+		# Apply smoothing to prevent jittering using lerp
+		follower.global_position = lerp(follower.global_position, leader_position, smoothing_factor * delta)
+		
+	

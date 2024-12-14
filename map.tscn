@@ -1018,3 +1018,6 @@ z_index = 10
 position = Vector2(520, 480)
 
 [node name="AnimalChain" parent="." instance=ExtResource("6_x2iac")]
+min_distance = 40.0
+max_distance = 80.0
+move_speed = 250.0

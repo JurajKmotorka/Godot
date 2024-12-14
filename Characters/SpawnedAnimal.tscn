@@ -13,8 +13,8 @@ size = Vector2(64, 40)
 [node name="Animal" type="CharacterBody2D"]
 z_index = 2
 scale = Vector2(0.195, 0.195)
-collision_layer = 8
-collision_mask = 8
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_okjiu")
 idle_speed = 10.0
 
