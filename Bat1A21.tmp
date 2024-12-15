@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://d3bb5i78ke3yo"]
+[gd_scene load_steps=8 format=3 uid="uid://d3bb5i78ke3yo"]
 
 [ext_resource type="Script" path="res://battle_scene.gd" id="1_s5102"]
 [ext_resource type="Script" path="res://stats_manager.gd" id="2_dhocc"]
-[ext_resource type="Script" path="res://ui_manager.gd" id="2_taeci"]
 [ext_resource type="Script" path="res://move_manager.gd" id="3_fihna"]
 [ext_resource type="Script" path="res://effect_manager.gd" id="4_sejcs"]
 
@@ -21,7 +20,7 @@ offset_right = 4.51999
 offset_bottom = 15.824
 script = ExtResource("1_s5102")
 
-[node name="UIManager" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 2.892
@@ -30,12 +29,11 @@ offset_left = 2.0
 offset_top = 5.0
 offset_right = 1.8999
 offset_bottom = 5.12299
-script = ExtResource("2_taeci")
 
-[node name="Panel" type="Panel" parent="UIManager"]
+[node name="Panel" type="Panel" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="UIManager/Panel"]
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -46,14 +44,14 @@ offset_right = -859.0
 offset_bottom = 403.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="UIManager/Panel/ProgressBar"]
+[node name="Label" type="Label" parent="VBoxContainer/Panel/ProgressBar"]
 layout_mode = 0
 offset_left = 118.0
 offset_top = 4.0
 offset_right = 213.0
 offset_bottom = 48.0
 
-[node name="ProgressBar2" type="ProgressBar" parent="UIManager/Panel"]
+[node name="ProgressBar2" type="ProgressBar" parent="VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,7 +64,7 @@ grow_horizontal = 2
 grow_vertical = 2
 show_percentage = false
 
-[node name="Label" type="Label" parent="UIManager/Panel/ProgressBar2"]
+[node name="Label" type="Label" parent="VBoxContainer/Panel/ProgressBar2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.232
@@ -76,14 +74,14 @@ offset_top = 11.0
 offset_right = 141.392
 offset_bottom = 34.0
 
-[node name="ButtonContainer" type="GridContainer" parent="UIManager/Panel"]
+[node name="ButtonContainer" type="GridContainer" parent="VBoxContainer/Panel"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 109.0
 offset_right = 775.0
 offset_bottom = 301.0
 
-[node name="Label" type="Label" parent="UIManager/Panel"]
+[node name="Label" type="Label" parent="VBoxContainer/Panel"]
 layout_mode = 0
 offset_right = 1148.0
 offset_bottom = 100.0
@@ -91,12 +89,12 @@ label_settings = SubResource("LabelSettings_w8vax")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="UIManager"]
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="VBoxContainer"]
 position = Vector2(992.789, 545.125)
 sprite_frames = SubResource("SpriteFrames_mewgl")
 flip_h = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UIManager"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="VBoxContainer"]
 position = Vector2(150.578, 518.938)
 scale = Vector2(0.289844, 0.289844)
 sprite_frames = SubResource("SpriteFrames_qq4mb")

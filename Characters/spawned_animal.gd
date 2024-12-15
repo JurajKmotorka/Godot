@@ -67,5 +67,4 @@ func start_fight() -> void:
 	get_tree().current_scene = fight_scene  # Set the new scene as the current scene
 
 	# Pass animal data to the fight scene
-	if fight_scene.has_method("set_enemy_data"):
-		fight_scene.set_enemy_data(animal_id)
+	fight_scene.set_enemy_data(animal_id)
