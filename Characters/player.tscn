@@ -8,17 +8,9 @@ size = Vector2(40, 17)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
-position = Vector2(176, 112)
 collision_mask = 2
 slide_on_ceiling = false
 script = ExtResource("1_h6nbx")
-metadata/_edit_group_ = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-texture_filter = 1
-scale = Vector2(0.195313, 0.195313)
-sprite_frames = ExtResource("2_m28yu")
-animation = &"walk"
 
 [node name="Camera2D2" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -27,3 +19,9 @@ position_smoothing_speed = 16.0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_smkb6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+scale = Vector2(0.2, 0.2)
+sprite_frames = ExtResource("2_m28yu")
+animation = &"idle"

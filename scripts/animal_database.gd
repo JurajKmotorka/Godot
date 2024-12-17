@@ -74,6 +74,18 @@ var animals = {
 		"moves": [1, 3, 9, 10, 14],
 		"rarity": "epic"
 	},
+	7: {
+		"animal_name": "Snail",
+		"class": "Worm",
+		"max_health": 50,
+		"current_health": 50,
+		"attack_power": 15,
+		"defense": 90,
+		"speed": 5,  #slow
+		"sprite_frames": "res://Art/Animals/Spriteframes/Snail.tres",
+		"moves": [2, 5, 9, 11, 13],
+		"rarity": "common"
+	},
 }
 
 

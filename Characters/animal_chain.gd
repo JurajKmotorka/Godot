@@ -1,13 +1,13 @@
 extends Node2D
 
 @export var max_following: int = 4
-var following_animals: Array = [4, 1, 6, 2]  # Animal IDs to spawn
+var following_animals: Array = [2, 1, 6, 7]  # Animal IDs to spawn
 var follower_nodes: Array = []  # Spawned follower nodes
 
-@export var min_distance: float = 30.0  # Minimum distance between followers
-@export var max_distance: float = 60.0  # Maximum distance before speed is increased
+@export var min_distance: float = 50.0  # Minimum distance between followers
+@export var max_distance: float = 80.0  # Maximum distance before speed is increased
 @export var move_speed: float = 200.0  # Base movement speed of followers
-@export var smoothing_factor: float = 1  # Smoothing for movement to reduce jittering
+@export var smoothing_factor: float = 2  # Smoothing for movement to reduce jittering
 @export var buffer_zone: float = 10.0  # Buffer zone around the target position
 
 var player: Node2D = null  # Reference to the Player node
