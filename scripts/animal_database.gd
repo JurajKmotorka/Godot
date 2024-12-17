@@ -5,8 +5,8 @@ var animals = {
 	1: {
 		"animal_name": "Dog",
 		"class": "Beast",
-		"max_health": 150,
-		"current_health": 150,
+		"max_health": 75,
+		"current_health": 75,
 		"attack_power": 35,
 		"defense": 20,
 		"speed": 40,  # Moderate speed
@@ -17,8 +17,8 @@ var animals = {
 	2: {
 		"animal_name": "Peacock",
 		"class": "Bird",
-		"max_health": 75,
-		"current_health": 75,
+		"max_health": 50,
+		"current_health": 50,
 		"attack_power": 25,
 		"defense": 15,
 		"speed": 60,  # High speed
@@ -29,8 +29,8 @@ var animals = {
 	3: {
 		"animal_name": "Hippo",
 		"class": "Fish",
-		"max_health": 200,
-		"current_health": 200,
+		"max_health": 100,
+		"current_health": 100,
 		"attack_power": 20,
 		"defense": 40,
 		"speed": 20,  # Slow
@@ -41,8 +41,8 @@ var animals = {
 	4: {
 		"animal_name": "Uletif",
 		"class": "Fish",
-		"max_health": 300,
-		"current_health": 300,
+		"max_health": 200,
+		"current_health": 200,
 		"attack_power": 30,
 		"defense": 50,
 		"speed": 10,  # Very slow
@@ -53,16 +53,29 @@ var animals = {
 	5: {
 		"animal_name": "Amphisbaena",
 		"class": "Serpent",
-		"max_health": 200,
-		"current_health": 200,
+		"max_health": 100,
+		"current_health": 100,
 		"attack_power": 40,
 		"defense": 25,
 		"speed": 50,  # Fast
 		"sprite_frames": "res://Art/Animals/Spriteframes/Amphisbaena.tres",
 		"moves": [11, 12],
 		"rarity": "epic"
-	}
+	},
+	6: {
+		"animal_name": "Abides",
+		"class": "Fish",
+		"max_health": 120,
+		"current_health": 120,
+		"attack_power": 25,
+		"defense": 40,
+		"speed": 20,  #slow
+		"sprite_frames": "res://Art/Animals/Spriteframes/Abides.tres",
+		"moves": [1, 3, 9, 10, 14],
+		"rarity": "epic"
+	},
 }
+
 
 # Function to add an animal to the database
 func _add_animal(animal_data: Dictionary) -> void:

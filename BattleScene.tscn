@@ -1,10 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://d3bb5i78ke3yo"]
+[gd_scene load_steps=12 format=3 uid="uid://d3bb5i78ke3yo"]
 
 [ext_resource type="Script" path="res://battle_scene.gd" id="1_s5102"]
 [ext_resource type="Script" path="res://stats_manager.gd" id="2_dhocc"]
 [ext_resource type="Script" path="res://ui_manager.gd" id="2_taeci"]
 [ext_resource type="Script" path="res://move_manager.gd" id="3_fihna"]
+[ext_resource type="Texture2D" uid="uid://bplc4482w31bn" path="res://Art/paper-background.webp" id="3_kydf0"]
 [ext_resource type="Script" path="res://effect_manager.gd" id="4_sejcs"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_123qt"]
+
+[sub_resource type="Theme" id="Theme_3ocq0"]
+ProgressBar/styles/background = SubResource("StyleBoxTexture_123qt")
+ProgressBar/styles/fill = null
 
 [sub_resource type="LabelSettings" id="LabelSettings_w8vax"]
 font_size = 30
@@ -40,10 +47,11 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 25.0
-offset_top = 358.0
-offset_right = -859.0
-offset_bottom = 403.0
+offset_left = 49.0
+offset_top = 382.0
+offset_right = -796.0
+offset_bottom = 459.0
+theme = SubResource("Theme_3ocq0")
 show_percentage = false
 
 [node name="Label" type="Label" parent="UIManager/Panel/ProgressBar"]
@@ -86,19 +94,26 @@ offset_bottom = 301.0
 [node name="Label" type="Label" parent="UIManager/Panel"]
 layout_mode = 0
 offset_right = 1148.0
-offset_bottom = 100.0
+offset_bottom = 205.0
 label_settings = SubResource("LabelSettings_w8vax")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Background" type="Sprite2D" parent="UIManager/Panel"]
+modulate = Color(0.133196, 0.133196, 0.133196, 1)
+show_behind_parent = true
+z_index = -1
+position = Vector2(574.5, 323.75)
+scale = Vector2(0.299219, 0.271042)
+texture = ExtResource("3_kydf0")
+
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="UIManager"]
-position = Vector2(992.789, 545.125)
+position = Vector2(943, 513)
 sprite_frames = SubResource("SpriteFrames_mewgl")
 flip_h = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UIManager"]
 position = Vector2(150.578, 518.938)
-scale = Vector2(0.289844, 0.289844)
 sprite_frames = SubResource("SpriteFrames_qq4mb")
 
 [node name="StatsManager" type="Node" parent="."]

@@ -12,12 +12,14 @@ extends VBoxContainer
 @onready var message_label = $Panel/Label
 @onready var button_container = $Panel/ButtonContainer  # Container for dynamically created button
 
+var enemy_name
 signal move_selected(move_id: int)
 
 
 # Initialize UI elements with stats
 func setup_ui(player_data: Dictionary, enemy_data: Dictionary) -> void:
 	# Set up health bars
+	enemy_name = enemy_data["animal_name"]
 	player_health_bar.max_value = player_data["max_health"]
 	player_health_bar.value = player_data["current_health"]
 	player_health_label.text = "%d/%d" % [player_data["current_health"], player_data["max_health"]]
@@ -76,7 +78,7 @@ func update_health(player_health: int, player_max_health: int, enemy_health: int
 	if player_health <= 0:
 		display_message("You have been defeated!")
 	elif enemy_health <= 0:
-		display_message("You defeated %s!" % [enemy_health_label.text])
+		display_message("You defeated %s!" % [enemy_name])
 
 # Display battle messages
 func display_message(message: String) -> void:

@@ -1,0 +1,27 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://b80k8hr10y3w3"]
+
+[ext_resource type="Texture2D" uid="uid://d2uj3pb0hv222" path="res://Art/Animals/Abides/abides-mini.png" id="1_kdmsa"]
+[ext_resource type="Texture2D" uid="uid://bjdl170a5pt4x" path="res://Art/Animals/Abides/abides-mini-walk.png" id="2_drxcg"]
+[ext_resource type="Texture2D" uid="uid://c77jdhqgl48jk" path="res://Art/Animals/Abides/abides-mini-walk-2.png" id="3_puwna"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kdmsa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_drxcg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_puwna")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]

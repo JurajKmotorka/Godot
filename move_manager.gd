@@ -8,47 +8,60 @@ func apply_move(attacker: Dictionary, defender: Dictionary, move: Dictionary) ->
 		print("No move provided!")
 		return "No move was selected."
 
-	print("Attacker move data: ", move)  # Log the move data to check if it's correct
+	var messages = []  # Collect messages to return
+	print("Applying move: %s" % move["move"])
+
+	# Precision Check: Determine if the move hits
+	if not _does_move_hit(attacker, move):
+		messages.append("%s used %s, but it missed!" % [attacker["animal_name"], move["move"]])
+		return "\n".join(messages)  # Return immediately if missed
+
+	# Calculate damage
 	var damage = calculate_damage(attacker, defender, move)
-	
-	# Log move and health changes for debugging
-	print("Applying move: %s, Damage: %d" % [move["move"], damage])
-	print("Defender health before: %d" % defender["current_health"])
-
-	# Update the defender's health after applying the damage
-	defender["current_health"] -= damage
-	defender["current_health"] = max(defender["current_health"], 0)  # Prevent negative health
-	
-	# Log health after applying the move
-	print("Defender health after: %d" % defender["current_health"])
-
-	# Apply any effects if the move has an effect
-	if move["effect"] != null:
-		print("Applying effect: ", move["effect"])  # Debugging
-		effect_manager.apply_effect(move["effect"], defender)
+	if damage > 0:
+		# Update defender's health
+		defender["current_health"] -= damage
+		defender["current_health"] = max(defender["current_health"], 0)
+		messages.append("%s used %s and dealt %d damage!" % [attacker["animal_name"], move["move"], damage])
 	else:
-		print("No effect to apply for this move.")
+		messages.append("%s used %s!" % [attacker["animal_name"], move["move"]])
 
-	return "%s uses %s! It deals %d damage!" % [attacker["animal_name"], move["move"], damage]
+	# Apply effects (if any)
+	if move["effect"] != null:
+		effect_manager.apply_effect(move["effect"], attacker)
+		messages.append(_get_effect_message(move["effect"], attacker, defender))
 
-# Calculate the damage based on stats and move
+	# Resolve effects (e.g., DoTs or buffs applied at the turn end)
+	effect_manager.resolve_effects(attacker, defender)
+
+	return "\n".join(messages)
+
+# Precision check: Determines if a move hits based on the attacker's precision
+func _does_move_hit(attacker: Dictionary, move: Dictionary) -> bool:
+	var precision = move.get("precision", 100)  # Default precision to 100 if not set
+	precision = min(max(precision, 1), 100)  # Clamp precision between 1 and 100
+	var roll = randi() % 100 + 1  # Random roll between 1 and 100
+	print("Move Precision: %d, Roll: %d" % [precision, roll])
+	return roll <= precision
+
+# Generate effect messages
+func _get_effect_message(effect: Dictionary, attacker: Dictionary, defender: Dictionary) -> String:
+	match effect["type"]:
+		"damage_over_time":
+			return "%s has been poisoned!" % [defender["animal_name"]]
+		"stat_buff":
+			return "%s's %s has been increased!" % [attacker["animal_name"], effect["stat"]]
+		"stat_debuff":
+			return "%s's %s has been reduced!" % [defender["animal_name"], effect["stat"]]
+		"heals":
+			return "%s is healed for %d HP!" % [attacker["animal_name"], effect["value"]]
+	return "%s has been affected by %s!" % [attacker["animal_name"], effect["status"]]
+
+# Calculate damage
 func calculate_damage(attacker: Dictionary, defender: Dictionary, move: Dictionary) -> int:
 	var base_damage = move["damage"]
+	if base_damage <= 0:
+		return 0
+
 	var final_damage = (attacker["attack_power"] * base_damage) / (defender["defense"] + 1)
-
-	# Debugging: Check the damage calculation values
-	print("Attacker attack power: ", attacker["attack_power"])
-	print("Base damage: ", base_damage)
-	print("Defender defense: ", defender["defense"])
-	print("Final damage: ", final_damage)
-
-	# Apply additional effects (e.g., status effects)
-	if move["effect"] != null:
-		print("Applying effect (additional): ", move["effect"])  # Debugging
-		effect_manager.apply_effect(move["effect"], defender)
-
-	return max(final_damage, 1)
-
-# Get available moves for an animal based on its level
-func get_available_moves(animal: Dictionary) -> Array:
-	return animal["available_moves"].filter(func(move): return move["required_level"] <= animal["level"])
+	return max(final_damage, 0)
