@@ -5,9 +5,12 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_n08de"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fs0iy"]
+radius = 91.7361
 
 [node name="FollowingAnimal" type="CharacterBody2D"]
 scale = Vector2(0.195, 0.195)
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_5vxgm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
