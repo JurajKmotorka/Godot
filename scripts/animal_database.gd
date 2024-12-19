@@ -86,6 +86,18 @@ var animals = {
 		"moves": [2, 5, 9, 11, 13],
 		"rarity": "common"
 	},
+	8: {
+		"animal_name": "Scitalis",
+		"class": "Serpent",
+		"max_health": 90,
+		"current_health": 90,
+		"attack_power": 45,
+		"defense": 30,
+		"speed": 150,  #very fast
+		"sprite_frames": "res://Art/Animals/Spriteframes/Scitalis.tres",
+		"moves": [1, 2, 7, 12, 13],
+		"rarity": "legendary"
+	},
 }
 
 

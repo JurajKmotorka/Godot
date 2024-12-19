@@ -5863,7 +5863,6 @@ tile_map_data = PackedByteArray("AAD5//7/AQACAAMAAAD6//7/AQADAAMAAAD5//n/AQADAAI
 tile_set = SubResource("TileSet_38x5i")
 
 [node name="Sprite2D" type="Sprite2D" parent="map2"]
-visible = false
 texture_filter = 4
 texture_repeat = 2
 material = SubResource("ShaderMaterial_etonh")
@@ -5902,4 +5901,3 @@ tile_set = SubResource("TileSet_ij8uk")
 [node name="AnimalChain" parent="." instance=ExtResource("6_x2iac")]
 z_index = 1
 y_sort_enabled = true
-move_speed = 250.0

@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://d0uftirfpexm"]
+
+[ext_resource type="Texture2D" uid="uid://qjm320pj5pyy" path="res://Art/Animals/Scitalis/scitalis.png" id="1_phaqd"]
+[ext_resource type="Texture2D" uid="uid://dx8fittn3r5t4" path="res://Art/Animals/Scitalis/scitalis-walk.png" id="2_vl7yh"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_phaqd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_phaqd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_vl7yh")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

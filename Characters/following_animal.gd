@@ -1,39 +1,34 @@
-extends CharacterBody2D
+extends Node2D
 
-var animal_data: Dictionary  # To store the data passed from the AnimalChain
-var previous_position: Vector2 = Vector2.ZERO  # Store the previous position to check if it's moving
+var animal_data: Dictionary  # Animal data for sprites, stats, etc.
+var position_queue = []  # Reference to the position queue in AnimalChain
+var delay_steps: int = 0  # Delay in queue steps for following
+var is_moving: bool = false  # Track if the player is moving
 
-# This function loads the data into the animal's properties
-func load_animal_id(id: int) -> void:
-	var data = AnimalDatabase.get_animal(id)
-	$AnimatedSprite2D.frames = load(data["sprite_frames"])  # Load the sprite frames
-	$AnimatedSprite2D.play("idle")  # Play the idle animation initially
-	# Set up other animal stats and behaviors here
-	print("Loaded animal data for %s" % data["animal_name"])
+# Called by AnimalChain to set the position queue and delay
+func set_position_queue(queue: Array, delay: int) -> void:
+	position_queue = queue
+	delay_steps = delay
 
-func _ready() -> void:
-	# Initialize the previous position at the start
-	previous_position = global_position
+# Loads animal data and sets up its properties
+func set_animal_data(id: int) -> void:
+	animal_data = AnimalDatabase.get_animal(id)
+	$AnimatedSprite2D.frames = load(animal_data["sprite_frames"])
+	$AnimatedSprite2D.play("idle")
+	print("Loaded animal: %s" % animal_data["animal_name"])
 
-func _process(delta: float) -> void:
-	# Check if the position has changed since the last frame
-	if global_position != previous_position :
-		update_animation(true)  # Animal is moving
-		
-			
+func _process(delta):
+	# Ensure the position queue is valid and has enough data
+	if position_queue.size() > delay_steps:
+		# Update the follower's position to the delayed position in the queue
+		global_position = position_queue[position_queue.size() - delay_steps]
+
+	# Check if the player is moving (based on input)
+	if (Input.is_action_pressed("up") or 
+		Input.is_action_pressed("down") or 
+		Input.is_action_pressed("left") or 
+		Input.is_action_pressed("right")):
+		$AnimatedSprite2D.play("walk")
+		$AnimatedSprite2D.flip_h = global_position.x > position_queue[position_queue.size() - 2].x
 	else:
-		update_animation(false)  # Animal is idle
-
-	# Update previous position for next frame
-	previous_position = global_position
-
-# Function to update the animation based on whether the animal is moving or idle
-func update_animation(is_moving: bool) -> void:
-	if is_moving:
-		$AnimatedSprite2D.play("walk")  # Play walking animation
-		if previous_position.x - global_position.x > 1:
-			$AnimatedSprite2D.flip_h = true
-		else:
-			$AnimatedSprite2D.flip_h = false
-	else:
-		$AnimatedSprite2D.play("idle")  # Play idle animation
+		$AnimatedSprite2D.play("idle")

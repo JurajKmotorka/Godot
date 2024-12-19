@@ -1,81 +1,49 @@
 extends Node2D
 
-@export var max_following: int = 4
-var following_animals: Array = [2, 1, 6, 7]  # Animal IDs to spawn
-var follower_nodes: Array = []  # Spawned follower nodes
+var leader_node: Node2D # Reference to the leader (player or NPC)
+var position_queue = []  # Tracks the leader's movement
+var max_queue_size = 100  # Max number of positions to track
+var previous_position: Vector2 # To track the leader's previous position
 
-@export var min_distance: float = 50.0  # Minimum distance between followers
-@export var max_distance: float = 80.0  # Maximum distance before speed is increased
-@export var move_speed: float = 200.0  # Base movement speed of followers
-@export var smoothing_factor: float = 2  # Smoothing for movement to reduce jittering
-@export var buffer_zone: float = 10.0  # Buffer zone around the target position
+# Hardcoded list of animal IDs for the chain
+var animal_ids = [1, 3, 4, 7]
+var max_followers = 4  # Maximum number of followers
+@export var follower_delay = 20  # Delay steps between each follower
 
-var player: Node2D = null  # Reference to the Player node
+# Called to set up the AnimalChain with a leader
+func set_leader(leader: Node2D):
+	leader_node = leader
 
-func _ready() -> void:
-	# Find the player node dynamically
-	player = get_parent().get_node("Player")
-	if not player:
-		print("Error: Player node not found!")
+func _ready():
+	leader_node = get_parent().get_node("Player")
+	if not leader_node:
+		print("Leader node is not set. Ensure to call set_leader() before starting.")
 		return
 
-	spawn_all_followers()
+	# Ensure the number of followers doesn't exceed the available animal IDs
+	var follower_count = min(animal_ids.size(), max_followers)
 
-func spawn_all_followers() -> void:
-	# Spawn all follower animals
-	for animal_id in following_animals:
-		spawn_follower(animal_id)
-
-func spawn_follower(animal_id: int) -> void:
-	# Load and instantiate the animal scene
-	var animal_scene = preload("res://Characters/following_animal.tscn").instantiate()
-	animal_scene.load_animal_id(animal_id)
-	add_child(animal_scene)
-
-	# Position the follower behind the player or the previous follower
-	if follower_nodes.is_empty():
-		# Place first follower behind the player
-		animal_scene.global_position = player.global_position - Vector2(min_distance, 0)
-	else:
-		# Place subsequent followers behind the last follower
-		var last_follower = follower_nodes[follower_nodes.size() - 1]
-		animal_scene.global_position = last_follower.global_position - Vector2(min_distance, 0)
-
-	# Add the new follower to the list
-	follower_nodes.append(animal_scene)
-
-func _process(delta: float) -> void:
-	if not player or follower_nodes.is_empty():
-		return
-
-	# Update the position of each follower
-	for i in range(follower_nodes.size()):
-		var follower = follower_nodes[i]
-		var leader_position: Vector2
-
-		if i == 0:
-			# The first follower follows the player
-			leader_position = player.global_position
-		else:
-			# Subsequent followers follow the previous follower
-			var previous_follower = follower_nodes[i - 1]
-			leader_position = previous_follower.global_position
-
-		# Calculate the distance to the leader
-		var current_distance = follower.global_position.distance_to(leader_position)
-
-		# Apply buffer zone logic
-		if current_distance > min_distance + buffer_zone:
-			# Move towards the leader if outside the buffer zone
-			var direction = (leader_position - follower.global_position).normalized()
-			var speed_factor = lerp(0.0, move_speed, (current_distance - min_distance) / (max_distance - min_distance))
-			follower.global_position += direction * speed_factor * delta
-		elif current_distance < min_distance:
-			# Move slightly away to maintain minimum distance
-			var direction = (follower.global_position - leader_position).normalized()
-			follower.global_position = leader_position + direction * min_distance
-
-		# Apply smoothing to prevent jittering using lerp
-		follower.global_position = lerp(follower.global_position, leader_position, smoothing_factor * delta)
+	# Dynamically generate followers based on animal IDs
+	for i in range(follower_count):
+		var follower = preload("res://Characters/following_animal.tscn").instantiate()
+		add_child(follower)
 		
-	
+		# Configure the follower
+		follower.set_position_queue(position_queue, (i + 1) * follower_delay)
+		
+		# Send the animal ID to the follower to load sprite data
+		follower.set_animal_data(animal_ids[i])
+
+func _process(delta):
+	if leader_node:
+		# Check if the leader has moved
+		if leader_node.global_position != previous_position:
+			# If the leader has moved, update the position queue
+			position_queue.append(leader_node.global_position)
+			
+			# Ensure the queue does not exceed the max size
+			if position_queue.size() > max_queue_size:
+				position_queue.pop_front()
+			
+			# Update the previous position to the current one
+			previous_position = leader_node.global_position
