@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://il3gxnnoln8x"]
 
 [ext_resource type="Script" path="res://character.gd" id="1_h6nbx"]
-[ext_resource type="SpriteFrames" uid="uid://d0uftirfpexm" path="res://Art/Animals/Spriteframes/Scitalis.tres" id="2_dg0ca"]
+[ext_resource type="SpriteFrames" uid="uid://bsksnns3dp1l6" path="res://Art/Animals/Spriteframes/Cat.tres" id="2_6w8t6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smkb6"]
 size = Vector2(40, 17)
@@ -23,5 +23,5 @@ shape = SubResource("RectangleShape2D_smkb6")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 scale = Vector2(0.2, 0.2)
-sprite_frames = ExtResource("2_dg0ca")
+sprite_frames = ExtResource("2_6w8t6")
 animation = &"walk"

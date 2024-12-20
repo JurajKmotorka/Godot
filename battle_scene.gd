@@ -17,7 +17,7 @@ func set_enemy_data(animal_id: int):
 	emit_signal("enemy_data_ready")
 
 func _ready():
-	player_data = stats_manager.initialize_stats(AnimalDatabase.get_animal(1), 1)
+	player_data = stats_manager.initialize_stats(AnimalDatabase.get_animal(AnimalDeck.get_selected_animals()[0]), 1)
 	if enemy_data.is_empty():
 		await self.enemy_data_ready
 

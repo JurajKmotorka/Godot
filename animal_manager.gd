@@ -1,6 +1,5 @@
 extends Node2D
 
-@export var animal_database_path: String = "res://scripts/animal_database.gd"  # Path to database
 @onready var animal_nodes = get_children()  # All child animal nodes
 
 func _ready():

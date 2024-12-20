@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://bsksnns3dp1l6"]
+
+[ext_resource type="Texture2D" uid="uid://cvnqtliyu1afp" path="res://Art/Animals/Cat/cat-mini.png" id="1_541uq"]
+[ext_resource type="Texture2D" uid="uid://cnm5ob02r6v8q" path="res://Art/Animals/Cat/cat-mini-walk.png" id="2_2bbjt"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_541uq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_541uq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_2bbjt")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

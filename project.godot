@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 AnimalDatabase="*res://scripts/animal_database.gd"
 MoveDatabase="*res://scripts/move_database.gd"
 GlobalData="*res://scripts/global_data.gd"
+AnimalDeck="*res://scripts/animal_deck.gd"
 
 [display]
 

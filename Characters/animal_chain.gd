@@ -6,7 +6,7 @@ var max_queue_size = 100  # Max number of positions to track
 var previous_position: Vector2 # To track the leader's previous position
 
 # Hardcoded list of animal IDs for the chain
-var animal_ids = [1, 3, 4, 7]
+var animal_ids = AnimalDeck.get_selected_animals()
 var max_followers = 4  # Maximum number of followers
 @export var follower_delay = 20  # Delay steps between each follower
 
