@@ -1,16 +1,13 @@
 extends Node
 # Global moves database with additional effects
 var moves = {
-	1: {"move": "Bite", "damage": 25, "precision": 85, "type": "offensive", "effect": null},
-	2: {"move": "Bark", "damage": 0, "precision": 100, "type": "debuff", "effect": {
+	1: {"move": "Bite", "damage": 10, "precision": 90, "type": "offensive", "effect": null},
+	2: {"move": "Mucus", "damage": 5, "precision": 80, "type": "offensive", "effect": null},
+
+	3: {"move": "Bark", "damage": 0, "precision": 100, "type": "debuff", "effect": {
 		"type": "stat_debuff",
-		"stat": "attack_power",
-		"duration": 1
-	}},
-	3: {"move": "Rabies", "damage": 50, "precision": 40, "type": "offensive", "effect": {
-		"type": "damage_over_time",
-		"value": 10,
-		"duration": 10
+		"stat": "defense",
+		"duration": 0
 	}},
 	4: {"move": "Slash", "damage": 20, "precision": 70, "type": "offensive", "effect": null},
 	5: {"move": "Roar", "damage": 0, "precision": 100, "type": "debuff", "effect": {
@@ -59,7 +56,12 @@ var moves = {
 		"type": "stat_buff",
 		"stat": "speed",
 		"duration": 1
-	}}
+	}},
+	17: {"move": "Rabies", "damage": 50, "precision": 40, "type": "offensive", "effect": {
+		"type": "damage_over_time",
+		"value": 10,
+		"duration": 10
+	}},
 }
 
 func get_move(key: int) -> Dictionary:

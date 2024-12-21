@@ -21,10 +21,13 @@ func load_animal_data(key: int):
 
 func _ready():
 	idle_movement()
+	
 	# Connect the `body_entered` signal from Area2D to this script
 	$Area2D.body_entered.connect(_on_body_entered)
+	$Area2D.body_exited.connect(_on_body_exited)
 	
 func _process(delta: float) -> void:
+	
 	if player_in_area and Input.is_action_pressed("accept"): # 'I' is mapped to 'accept' by default
 		GlobalData.player_position = $Area2D.global_position
 		start_fight()
@@ -35,13 +38,22 @@ func idle_movement() -> void:
 	while true:
 		# Random offset within idle range
 		var target_position = original_position + Vector2(randf_range(-idle_range, idle_range), randf_range(-idle_range, idle_range))
+		$AnimatedSprite2D.animation = "walk"
+		$AnimatedSprite2D.play()
+		
 		await move_to(target_position)
+		$AnimatedSprite2D.animation = "idle"
+		
 		await get_tree().create_timer(randf_range(1.0, 3.0)).timeout
 
 # Smooth movement towards a target
 func move_to(target: Vector2) -> void:
 	while global_position.distance_to(target) > 1.0:
 		var direction = (target - global_position).normalized()
+		if direction.x < 0:
+			$AnimatedSprite2D.flip_h = true
+		else:
+			$AnimatedSprite2D.flip_h = false
 		velocity = direction * idle_speed
 		move_and_slide()
 		await get_tree().process_frame # Wait for the next frame
@@ -50,6 +62,14 @@ func _on_body_entered(body):
 	if body.name == "Player":
 		print("Collision detected with Player!")
 		player_in_area = true
+		
+	else:
+		print("Collision detected with: %s" % body.name)
+		
+func _on_body_exited(body):
+	if body.name == "Player":
+		print("Collision with Player terminated!")
+		player_in_area = false
 		
 	else:
 		print("Collision detected with: %s" % body.name)

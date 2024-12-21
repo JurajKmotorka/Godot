@@ -11,10 +11,10 @@ const CLASS_MULTIPLIERS = {
 
 # Stat growth multipliers per level
 const STAT_GROWTH = {
-	"max_health": 10,    # +10 health per level
-	"attack_power": 2,   # +2 attack power per level
-	"defense": 1,        # +1 defense per level
-	"speed": 0.5         # +0.5 speed per level
+	"max_health": 20,    # +10 health per level
+	"attack_power": 10,   # +2 attack power per level
+	"defense": 2,        # +1 defense per level
+	"speed": 2        # +0.5 speed per level
 }
 
 func initialize_stats(animal_data: Dictionary, level: int = 1, enemy_class: String = "") -> Dictionary:
@@ -39,7 +39,7 @@ func initialize_stats(animal_data: Dictionary, level: int = 1, enemy_class: Stri
 
 func _scale_stat(base_stat: int, level: int, growth: float) -> int:
 	# Scaling formula for stats
-	return base_stat + int(level * growth)
+	return base_stat + int(base_stat * (level -1) * growth / 100)
 
 func _apply_class_modifiers(stats: Dictionary, enemy_class: String) -> void:
 	var class_type = stats["class"]

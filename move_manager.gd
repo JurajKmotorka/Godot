@@ -63,5 +63,5 @@ func calculate_damage(attacker: Dictionary, defender: Dictionary, move: Dictiona
 	if base_damage <= 0:
 		return 0
 
-	var final_damage = (attacker["attack_power"] * base_damage) / (defender["defense"] + 1)
-	return max(final_damage, 0)
+	var final_damage = (attacker["attack_power"] * (attacker["attack_power"] * base_damage / 10)) / (defender["defense"] + 1)
+	return max(final_damage, 1)

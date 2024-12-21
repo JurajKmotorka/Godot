@@ -13,11 +13,11 @@ signal enemy_data_ready
 signal battle_result(won: bool)
 
 func set_enemy_data(animal_id: int):
-	enemy_data = stats_manager.initialize_stats(AnimalDatabase.get_animal(animal_id), 1, player_data["class"])
+	enemy_data = stats_manager.initialize_stats(AnimalDatabase.get_animal(animal_id), 10)
 	emit_signal("enemy_data_ready")
 
 func _ready():
-	player_data = stats_manager.initialize_stats(AnimalDatabase.get_animal(AnimalDeck.get_selected_animals()[0]), 1)
+	player_data = stats_manager.initialize_stats(AnimalDatabase.get_animal(AnimalDeck.get_selected_animals()[0]), 10)
 	if enemy_data.is_empty():
 		await self.enemy_data_ready
 
@@ -77,7 +77,7 @@ func _check_battle_over() -> void:
 
 	_update_ui()
 	if is_battle_over:
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(2.0).timeout
 		_return_to_main_scene()
 
 func _return_to_main_scene() -> void:
@@ -85,12 +85,6 @@ func _return_to_main_scene() -> void:
 	get_tree().current_scene.queue_free()
 	get_tree().root.add_child(main_scene)
 	get_tree().current_scene = main_scene
-	get_tree().call_deferred("_set_player_position")
-
-func _set_player_position() -> void:
-	var player = get_tree().current_scene.get_node("Player")
-	if player:
-		player.position = GlobalData.player_position
 
 func _update_ui():
 	ui_manager.update_health(player_data["current_health"], player_data["max_health"], 
