@@ -30,6 +30,7 @@ func setup_ui(player_data: Dictionary, enemy_data: Dictionary) -> void:
 
 	# Load sprites
 	player_sprite.sprite_frames = load(player_data["sprite_frames"])
+	print(player_data)
 	enemy_sprite.sprite_frames = load(enemy_data["sprite_frames"])
 
 	# Display initial message
@@ -48,7 +49,7 @@ func setup_move_buttons(move_list: Array) -> void:
 	for move in move_list:
 		# Create a new button
 		var button = Button.new()
-		button.text = MoveDatabase.get_move(move)["move"]
+		button.text = move
 		
 		# Connect the "pressed" signal to a function that informs the BattleManager
 		button.pressed.connect(self._on_move_button_pressed.bind(move))
@@ -57,9 +58,9 @@ func setup_move_buttons(move_list: Array) -> void:
 		button_container.add_child(button)
 
 # Handle button press to notify the BattleManager
-func _on_move_button_pressed(move: int) -> void:
+func _on_move_button_pressed(move: String) -> void:
 	# Display the message for the selected move
-	display_message("You used %s!" % MoveDatabase.get_move(move)["move"])
+	display_message("You used %s!" % move)
 
 	# Notify the BattleManager to handle the move
 	emit_signal("move_selected", move)

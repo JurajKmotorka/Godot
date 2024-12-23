@@ -9,38 +9,41 @@ const CLASS_MULTIPLIERS = {
 	"Worm": {}
 }
 
-# Stat growth multipliers per level
-const STAT_GROWTH = {
-	"max_health": 20,    # +10 health per level
-	"attack_power": 10,   # +2 attack power per level
-	"defense": 2,        # +1 defense per level
-	"speed": 2        # +0.5 speed per level
-}
-
-func initialize_stats(animal_data: Dictionary, level: int = 1, enemy_class: String = "") -> Dictionary:
+# Function to initialize and scale stats
+func initialize_stats(animal_data: Dictionary, level: int, enemy_class: String = "") -> Dictionary:
 	# Initialize and scale base stats
 	var stats = {
 		"animal_name": animal_data.get("animal_name"),
 		"level": level,
-		"max_health": _scale_stat(animal_data.get("max_health", 100), level, STAT_GROWTH["max_health"]),
-		"attack_power": _scale_stat(animal_data.get("attack", 10), level, STAT_GROWTH["attack_power"]),
-		"defense": _scale_stat(animal_data.get("defense", 5), level, STAT_GROWTH["defense"]),
-		"speed": _scale_stat(animal_data.get("speed", 10), level, STAT_GROWTH["speed"]),
-		"current_health": 0, # Will be set to max_health
+		"max_health": _scale_stat(animal_data.get("max_health"), level),
+		"current_health": _scale_stat(animal_data.get("current_health"), level),
+		"attack_power": _scale_stat(animal_data.get("attack_power"), level),
+		"defense": _scale_stat(animal_data.get("defense"), level),
+		"speed": _scale_stat(animal_data.get("speed"), level),
 		"class": animal_data.get("class", "Unknown"),
-		"moves": animal_data.get("moves", []),
+		"moves": _get_unlocked_moves(animal_data.get("moves", {}), level),
 		"sprite_frames": animal_data.get("sprite_frames")
 	}
-	stats["current_health"] = stats["max_health"]
 
 	# Apply class-based multipliers if an enemy class is provided
 	_apply_class_modifiers(stats, enemy_class)
 	return stats
 
-func _scale_stat(base_stat: int, level: int, growth: float) -> int:
-	# Scaling formula for stats
-	return base_stat + int(base_stat * (level -1) * growth / 100)
+# Function to get unlocked moves based on level
+func _get_unlocked_moves(moves: Dictionary, level: int) -> Array:
+	var unlocked_moves = []
+	for move_name in moves.keys():
+		if level >= moves[move_name]:  # Check if the move's level requirement is met
+			unlocked_moves.append(move_name)
+	return unlocked_moves
 
+# Function to scale stats based on level
+func _scale_stat(base_stat: Array, level: int) -> int:
+	# Function to calculate stats based on level
+	var growth_rate = float(base_stat[1] - base_stat[0]) / float(100 - 1)  # Ensure floating-point division
+	return int(base_stat[0] + growth_rate * (level - 1))
+
+# Function to apply class-based stat modifiers
 func _apply_class_modifiers(stats: Dictionary, enemy_class: String) -> void:
 	var class_type = stats["class"]
 	if class_type in CLASS_MULTIPLIERS:

@@ -1,19 +1,22 @@
 extends Node
 
 var effect_manager = preload("res://effect_manager.gd").new()
+var move_data = {}
 
 # Applies the move and calculates damage based on stats
-func apply_move(attacker: Dictionary, defender: Dictionary, move: Dictionary) -> String:
+func apply_move(attacker: Dictionary, defender: Dictionary, move: String) -> String:
 	if not move:
 		print("No move provided!")
 		return "No move was selected."
+	
+	move_data = MoveDatabase.get_move(move)
 
 	var messages = []  # Collect messages to return
-	print("Applying move: %s" % move["move"])
+	print("Applying move: %s" % move)
 
 	# Precision Check: Determine if the move hits
 	if not _does_move_hit(attacker, move):
-		messages.append("%s used %s, but it missed!" % [attacker["animal_name"], move["move"]])
+		messages.append("%s used %s, but it missed!" % [attacker["animal_name"], move])
 		return "\n".join(messages)  # Return immediately if missed
 
 	# Calculate damage
@@ -22,14 +25,14 @@ func apply_move(attacker: Dictionary, defender: Dictionary, move: Dictionary) ->
 		# Update defender's health
 		defender["current_health"] -= damage
 		defender["current_health"] = max(defender["current_health"], 0)
-		messages.append("%s used %s and dealt %d damage!" % [attacker["animal_name"], move["move"], damage])
+		messages.append("%s used %s and dealt %d damage!" % [attacker["animal_name"], move, damage])
 	else:
-		messages.append("%s used %s!" % [attacker["animal_name"], move["move"]])
+		messages.append("%s used %s!" % [attacker["animal_name"], move])
 
 	# Apply effects (if any)
-	if move["effect"] != null:
-		effect_manager.apply_effect(move["effect"], attacker)
-		messages.append(_get_effect_message(move["effect"], attacker, defender))
+	if move_data["effect"] != null:
+		effect_manager.apply_effect(move_data["effect"], attacker)
+		messages.append(_get_effect_message(move_data["effect"], attacker, defender))
 
 	# Resolve effects (e.g., DoTs or buffs applied at the turn end)
 	effect_manager.resolve_effects(attacker, defender)
@@ -37,8 +40,8 @@ func apply_move(attacker: Dictionary, defender: Dictionary, move: Dictionary) ->
 	return "\n".join(messages)
 
 # Precision check: Determines if a move hits based on the attacker's precision
-func _does_move_hit(attacker: Dictionary, move: Dictionary) -> bool:
-	var precision = move.get("precision", 100)  # Default precision to 100 if not set
+func _does_move_hit(attacker: Dictionary, move: String) -> bool:
+	var precision = move_data["precision"] # Default precision to 100 if not set
 	precision = min(max(precision, 1), 100)  # Clamp precision between 1 and 100
 	var roll = randi() % 100 + 1  # Random roll between 1 and 100
 	print("Move Precision: %d, Roll: %d" % [precision, roll])
@@ -58,10 +61,9 @@ func _get_effect_message(effect: Dictionary, attacker: Dictionary, defender: Dic
 	return "%s has been affected by %s!" % [attacker["animal_name"], effect["status"]]
 
 # Calculate damage
-func calculate_damage(attacker: Dictionary, defender: Dictionary, move: Dictionary) -> int:
-	var base_damage = move["damage"]
-	if base_damage <= 0:
+func calculate_damage(attacker: Dictionary, defender: Dictionary, move: String) -> int:
+	if move_data["damage"] <= 0:
 		return 0
 
-	var final_damage = (attacker["attack_power"] * (attacker["attack_power"] * base_damage / 10)) / (defender["defense"] + 1)
+	var final_damage = move_data["damage"] * attacker["attack_power"] / defender["defense"]
 	return max(final_damage, 1)

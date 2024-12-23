@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://d0xd21elwvro6"]
+
+[ext_resource type="Texture2D" uid="uid://brs1t42uyth4a" path="res://Art/Animals/Turtle/turtle-mini.png" id="1_1vrxf"]
+[ext_resource type="Texture2D" uid="uid://ds3avftvh0f7g" path="res://Art/Animals/Turtle/turtle-mini-walk.png" id="2_8v2ao"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1vrxf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1vrxf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_8v2ao")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

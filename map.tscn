@@ -3979,7 +3979,7 @@ sources/3 = SubResource("TileSetAtlasSource_iahph")
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_187hl"]
 width = 256
-height = 524
+height = 1024
 seamless = true
 noise = SubResource("FastNoiseLite_qr3w1")
 
@@ -3996,11 +3996,11 @@ noise = SubResource("FastNoiseLite_3675d")
 shader = ExtResource("9_o0kok")
 shader_parameter/scroll1 = Vector2(0.05, 0.05)
 shader_parameter/scroll2 = Vector2(-0.05, -0.05)
-shader_parameter/tone_color = Color(0.396078, 0.470588, 0.988235, 1)
-shader_parameter/top_color = Color(0.902337, 0.910549, 0.993192, 1)
-shader_parameter/light_start = 0.2
-shader_parameter/light_end = 0.53
-shader_parameter/distortion_strength = 0.0970001
+shader_parameter/tone_color = Color(0.631373, 0.666667, 0.996078, 1)
+shader_parameter/top_color = Color(0.3913, 0.43, 0.426775, 1)
+shader_parameter/light_start = 0.459
+shader_parameter/light_end = 0.521
+shader_parameter/distortion_strength = 0.042
 shader_parameter/noise1 = SubResource("NoiseTexture2D_187hl")
 shader_parameter/noise2 = SubResource("NoiseTexture2D_3nc1r")
 
