@@ -7,11 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://bplc4482w31bn" path="res://Art/paper-background.webp" id="3_kydf0"]
 [ext_resource type="Script" path="res://effect_manager.gd" id="4_sejcs"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_123qt"]
+[sub_resource type="Theme" id="Theme_bnrfs"]
 
-[sub_resource type="Theme" id="Theme_3ocq0"]
-ProgressBar/styles/background = SubResource("StyleBoxTexture_123qt")
-ProgressBar/styles/fill = null
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b5yvd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w8vax"]
 font_size = 30
@@ -22,67 +20,30 @@ font_size = 30
 
 [node name="BattleManager" type="Control"]
 layout_mode = 3
-anchor_right = 0.365
-anchor_bottom = 0.437
-offset_right = 4.51999
-offset_bottom = 15.824
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_s5102")
 
 [node name="UIManager" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 2.892
-anchor_bottom = 2.023
-offset_left = 2.0
-offset_top = 5.0
-offset_right = 1.8999
-offset_bottom = 5.12299
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_right = -91.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
 script = ExtResource("2_taeci")
 
 [node name="Panel" type="Panel" parent="UIManager"]
 layout_mode = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="UIManager/Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 49.0
-offset_top = 382.0
-offset_right = -796.0
-offset_bottom = 459.0
-theme = SubResource("Theme_3ocq0")
-show_percentage = false
-
-[node name="Label" type="Label" parent="UIManager/Panel/ProgressBar"]
-layout_mode = 0
-offset_left = 118.0
-offset_top = 4.0
-offset_right = 213.0
-offset_bottom = 48.0
-
-[node name="ProgressBar2" type="ProgressBar" parent="UIManager/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 754.0
-offset_top = 385.0
-offset_right = -105.0
-offset_bottom = 449.0
-grow_horizontal = 2
-grow_vertical = 2
-show_percentage = false
-
-[node name="Label" type="Label" parent="UIManager/Panel/ProgressBar2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.232
-anchor_bottom = 0.5
-offset_left = 137.0
-offset_top = 11.0
-offset_right = 141.392
-offset_bottom = 34.0
+size_flags_vertical = 3
+theme = SubResource("Theme_bnrfs")
+theme_override_styles/panel = SubResource("StyleBoxTexture_b5yvd")
 
 [node name="ButtonContainer" type="GridContainer" parent="UIManager/Panel"]
 layout_mode = 0
@@ -99,21 +60,57 @@ label_settings = SubResource("LabelSettings_w8vax")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Background" type="Sprite2D" parent="UIManager/Panel"]
-modulate = Color(0.133196, 0.133196, 0.133196, 1)
-show_behind_parent = true
-z_index = -1
-position = Vector2(574.5, 323.75)
-scale = Vector2(0.299219, 0.271042)
-texture = ExtResource("3_kydf0")
+[node name="HealthBarContainer" type="HBoxContainer" parent="UIManager/Panel"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -103.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="UIManager/Panel/HealthBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+show_percentage = false
+
+[node name="Label" type="Label" parent="UIManager/Panel/HealthBarContainer/ProgressBar"]
+layout_mode = 0
+offset_left = 124.0
+offset_top = 11.0
+offset_right = 219.0
+offset_bottom = 55.0
+
+[node name="ProgressBar2" type="ProgressBar" parent="UIManager/Panel/HealthBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+show_percentage = false
+
+[node name="Label" type="Label" parent="UIManager/Panel/HealthBarContainer/ProgressBar2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.232
+anchor_bottom = 0.5
+offset_left = 137.0
+offset_top = 11.0
+offset_right = 141.392
+offset_bottom = 34.0
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="UIManager"]
-position = Vector2(943, 513)
+position = Vector2(835, 377)
 sprite_frames = SubResource("SpriteFrames_mewgl")
 flip_h = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UIManager"]
-position = Vector2(150.578, 518.938)
+position = Vector2(137, 450)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_qq4mb")
 
 [node name="StatsManager" type="Node" parent="."]
@@ -124,3 +121,11 @@ script = ExtResource("3_fihna")
 
 [node name="EffectManager" type="Node" parent="."]
 script = ExtResource("4_sejcs")
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.133196, 0.133196, 0.133196, 1)
+show_behind_parent = true
+z_index = -1
+position = Vector2(639, 356.75)
+scale = Vector2(0.332292, 0.298542)
+texture = ExtResource("3_kydf0")

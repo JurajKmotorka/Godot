@@ -1,10 +1,10 @@
 extends VBoxContainer
 
 # UI References
-@onready var player_health_bar = $Panel/ProgressBar
-@onready var player_health_label = $Panel/ProgressBar/Label
-@onready var enemy_health_bar = $Panel/ProgressBar2
-@onready var enemy_health_label = $Panel/ProgressBar2/Label
+@onready var player_health_bar = $Panel/HealthBarContainer/ProgressBar
+@onready var player_health_label = $Panel/HealthBarContainer/ProgressBar/Label
+@onready var enemy_health_bar = $Panel/HealthBarContainer/ProgressBar2
+@onready var enemy_health_label = $Panel/HealthBarContainer/ProgressBar2/Label
 
 @onready var player_sprite = $AnimatedSprite2D
 @onready var enemy_sprite = $AnimatedSprite2D2
