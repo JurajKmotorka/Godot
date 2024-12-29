@@ -8,7 +8,7 @@ size = Vector2(48, 24)
 [sub_resource type="SpriteFrames" id="SpriteFrames_586v4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g6nsm"]
-size = Vector2(64, 40)
+size = Vector2(246.154, 205.128)
 
 [node name="Animal" type="CharacterBody2D"]
 z_index = 2
@@ -29,5 +29,5 @@ sprite_frames = SubResource("SpriteFrames_586v4")
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 4)
+position = Vector2(7.33596e-06, 20.5128)
 shape = SubResource("RectangleShape2D_g6nsm")

@@ -29,6 +29,6 @@ func _process(delta):
 		Input.is_action_pressed("left") or 
 		Input.is_action_pressed("right")):
 		$AnimatedSprite2D.play("walk")
-		$AnimatedSprite2D.flip_h = global_position.x > position_queue[position_queue.size() - 2].x
+	#	$AnimatedSprite2D.flip_h = global_position.x > position_queue[position_queue.size() - 2].x
 	else:
 		$AnimatedSprite2D.play("idle")

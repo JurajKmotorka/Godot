@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
-@export var move_speed: float = 2
+@export var joystick: VirtualJoystick
+@export var move_speed: float = 100
 var input_direction = Vector2.ZERO
 
 func _ready():
@@ -8,30 +9,35 @@ func _ready():
 		position = GlobalData.player_position
 
 func _physics_process(_delta: float) -> void:
-	# Reset input_direction to zero each frame
-	input_direction = Vector2.ZERO
+	var raw_output = Vector2.ZERO
 
-	# Handle horizontal input when vertical input is zero
-	if input_direction.y == 0:
-		input_direction.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+	if joystick and joystick.is_pressed:
+		# Get joystick's raw output
+		raw_output = joystick.output
+	else:
+		# Get keyboard input using Input.get_vector
+		raw_output = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
-	# Handle vertical input when horizontal input is zero
-	if input_direction.x == 0:
-		input_direction.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
-	
-	# Calculate velocity and apply movement
+	# Determine the dominant direction (cardinal only)
+	if abs(raw_output.x) > abs(raw_output.y):
+		input_direction = Vector2(1 if raw_output.x > 0 else -1, 0)
+	elif raw_output != Vector2.ZERO:  # Only update for valid input
+		input_direction = Vector2(0, 1 if raw_output.y > 0 else -1)
+	else:
+		input_direction = Vector2.ZERO
+
+	# Apply movement
 	velocity = input_direction * move_speed
-	
-	# Move
-	position += velocity
 	move_and_slide()
-	
-	# Update the animated sprite based on movement
+
+	# Debug print to check the input direction
+	print("Input Direction:", input_direction)
+	print("Velocity:", velocity)
+
+	# Update the animated sprite
 	if velocity.length() > 0:
 		$AnimatedSprite2D.play()
 		$AnimatedSprite2D.animation = "walk"
+		$AnimatedSprite2D.flip_h = velocity.x < 0  # Flip sprite horizontally based on direction
 	else:
 		$AnimatedSprite2D.stop()
-
-	if velocity.x != 0:
-		$AnimatedSprite2D.flip_h = velocity.x < 0  # Flip sprite horizontally based on direction

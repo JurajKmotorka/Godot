@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://dk56ofgqc7cb8"]
+[gd_scene load_steps=51 format=4 uid="uid://dk56ofgqc7cb8"]
 
 [ext_resource type="Texture2D" uid="uid://rlr4llit7e8g" path="res://Art/Texture/TX Tileset Grass.png" id="1_fiofn"]
 [ext_resource type="PackedScene" uid="uid://il3gxnnoln8x" path="res://Characters/player.tscn" id="2_cefhn"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://5h2gb0lgjx8y" path="res://icon.svg" id="10_gcdo4"]
 [ext_resource type="Texture2D" uid="uid://c43nc15v0oswq" path="res://Art/basic_tileset_and_assets_standard/assets_spritesheet_v2_free.png" id="10_qpmy6"]
 [ext_resource type="Texture2D" uid="uid://ye3f2mw0g7t8" path="res://Art/basic_tileset_and_assets_standard/ground_decorations.png" id="10_xqppr"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="14_w2xbp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fy41c"]
 texture = ExtResource("1_fiofn")
@@ -4824,13 +4825,13 @@ texture_region_size = Vector2i(32, 32)
 2:7/0 = 0
 3:7/0 = 0
 4:7/0 = 0
-4:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, 16, 16, -16, 10, -16, 10, 16)
+4:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, -13, -13, -13, -13, 7, 16, 8, 16, 16, -16, 16)
 5:7/0 = 0
-5:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, 16, 16, -16, 10, -16, 10, 16)
+5:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, -13, -13, -12.5, -13, 8, 16, 8, 16, 16, -16, 16)
 6:7/0 = 0
-6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, 16, 16, -16, 10, -16, 10, 16)
+6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, -16, -16, -16, -13, 13, -13, 13, 7, -16, 8, -16, 16, 16, 16)
 7:7/0 = 0
-7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, 16, 16, -16, 10, -16, 10, 16)
+7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 8:7/0 = 0
 9:7/0 = 0
 0:8/0 = 0
@@ -5901,3 +5902,15 @@ tile_set = SubResource("TileSet_ij8uk")
 [node name="AnimalChain" parent="." instance=ExtResource("6_x2iac")]
 z_index = 1
 y_sort_enabled = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Virtual Joystick" parent="UI" instance=ExtResource("14_w2xbp")]
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 368.0
+offset_top = 400.0
+offset_right = 668.0
+offset_bottom = 700.0
+grow_vertical = 1

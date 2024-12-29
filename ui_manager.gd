@@ -12,6 +12,7 @@ extends VBoxContainer
 @onready var message_label = $Panel/Label
 @onready var button_container = $Panel/ButtonContainer  # Container for dynamically created button
 
+
 var enemy_name
 signal move_selected(move_id: int)
 
@@ -48,7 +49,7 @@ func setup_move_buttons(move_list: Array) -> void:
 	# Loop through each move and create a button for it
 	for move in move_list:
 		# Create a new button
-		var button = Button.new()
+		var button = load("res://Templates/move_button.tscn").instantiate()
 		button.text = move
 		
 		# Connect the "pressed" signal to a function that informs the BattleManager
@@ -61,7 +62,6 @@ func setup_move_buttons(move_list: Array) -> void:
 func _on_move_button_pressed(move: String) -> void:
 	# Display the message for the selected move
 	display_message("You used %s!" % move)
-
 	# Notify the BattleManager to handle the move
 	emit_signal("move_selected", move)
 
