@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfb6hk2mjk4a6"]
-
-[ext_resource type="Theme" path="res://Art/kenneyUI.tres" id="1_fhqgk"]
-
-[node name="MoveButton" type="Button"]
-size_flags_horizontal = 3
-theme = ExtResource("1_fhqgk")
-text = "
-"

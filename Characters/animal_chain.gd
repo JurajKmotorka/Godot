@@ -1,9 +1,10 @@
 extends Node2D
 
-var leader_node: Node2D # Reference to the leader (player or NPC)
+var leader_node: Node2D  # Reference to the leader (player or NPC)
 var position_queue = []  # Tracks the leader's movement
 var max_queue_size = 100  # Max number of positions to track
-var previous_position: Vector2 # To track the leader's previous position
+var previous_position: Vector2 = Vector2.ZERO  # To track the leader's previous position
+var movement_threshold: float = 1.0  # Minimum distance to consider as movement
 
 # Hardcoded list of animal IDs for the chain
 var animal_ids = AnimalDeck.get_selected_animals()
@@ -36,9 +37,11 @@ func _ready():
 
 func _process(delta):
 	if leader_node:
-		# Check if the leader has moved
-		if leader_node.global_position != previous_position:
-			# If the leader has moved, update the position queue
+		# Calculate the distance moved since the last frame
+		var distance_moved = leader_node.global_position.distance_to(previous_position)
+		
+		# Update the queue only if the movement exceeds the threshold
+		if distance_moved > movement_threshold:
 			position_queue.append(leader_node.global_position)
 			
 			# Ensure the queue does not exceed the max size

@@ -28,7 +28,7 @@ func _ready():
 	
 func _process(delta: float) -> void:
 	
-	if player_in_area and Input.is_action_pressed("accept"): # 'I' is mapped to 'accept' by default
+	if player_in_area and Input.is_action_pressed("ui_accept"): 
 		GlobalData.player_position = $Area2D.global_position
 		start_fight()
 

@@ -5,10 +5,9 @@
 [ext_resource type="Script" path="res://ui_manager.gd" id="2_taeci"]
 [ext_resource type="Script" path="res://move_manager.gd" id="3_fihna"]
 [ext_resource type="Texture2D" uid="uid://bplc4482w31bn" path="res://Art/paper-background.webp" id="3_kydf0"]
+[ext_resource type="Theme" uid="uid://dbvkbwp0l2waq" path="res://Art/kenneyUI-green.tres" id="3_pd1da"]
 [ext_resource type="Script" path="res://effect_manager.gd" id="4_sejcs"]
 [ext_resource type="Theme" uid="uid://m7m77bv87xin" path="res://Art/kenneyUI.tres" id="4_wjq8k"]
-
-[sub_resource type="Theme" id="Theme_bnrfs"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b5yvd"]
 
@@ -26,15 +25,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_s5102")
 
 [node name="background" type="TextureRect" parent="."]
 z_index = -1
-layout_mode = 0
-offset_right = 1282.0
-offset_bottom = 719.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.002
+anchor_bottom = 0.999
+offset_right = -0.560059
+offset_bottom = -0.280029
 texture = ExtResource("3_kydf0")
-expand_mode = 2
+expand_mode = 1
+stretch_mode = 6
 
 [node name="UIManager" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -45,13 +50,13 @@ offset_left = 100.0
 offset_right = -91.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_pd1da")
 alignment = 1
 script = ExtResource("2_taeci")
 
 [node name="Panel" type="Panel" parent="UIManager"]
 layout_mode = 2
 size_flags_vertical = 3
-theme = SubResource("Theme_bnrfs")
 theme_override_styles/panel = SubResource("StyleBoxTexture_b5yvd")
 
 [node name="ButtonContainer" type="HBoxContainer" parent="UIManager/Panel"]
@@ -132,9 +137,6 @@ flip_h = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UIManager"]
 position = Vector2(249, 462)
-rotation = -0.106465
-scale = Vector2(0.8, 1.4)
-skew = 0.106465
 sprite_frames = SubResource("SpriteFrames_qq4mb")
 
 [node name="StatsManager" type="Node" parent="."]

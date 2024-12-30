@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://tje6e2o446k5"]
+
+[ext_resource type="Texture2D" uid="uid://dsvcp7gqjsog8" path="res://Art/Animals/Goat/Goat-mini.png" id="1_8ru7p"]
+[ext_resource type="Texture2D" uid="uid://c0w3d2k4l6pt2" path="res://Art/Animals/Goat/Goat-mini-walk.png" id="2_sa8jp"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8ru7p")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8ru7p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_sa8jp")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

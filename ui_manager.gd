@@ -49,7 +49,7 @@ func setup_move_buttons(move_list: Array) -> void:
 	# Loop through each move and create a button for it
 	for move in move_list:
 		# Create a new button
-		var button = load("res://Templates/move_button.tscn").instantiate()
+		var button = Button.new()
 		button.text = move
 		
 		# Connect the "pressed" signal to a function that informs the BattleManager

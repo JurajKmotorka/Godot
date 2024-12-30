@@ -4,4 +4,4 @@
 
 [node name="AnimalChain" type="Node2D"]
 script = ExtResource("1_fuqyw")
-follower_delay = 14
+follower_delay = 18

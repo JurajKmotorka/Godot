@@ -30,10 +30,6 @@ func _physics_process(_delta: float) -> void:
 	velocity = input_direction * move_speed
 	move_and_slide()
 
-	# Debug print to check the input direction
-	print("Input Direction:", input_direction)
-	print("Velocity:", velocity)
-
 	# Update the animated sprite
 	if velocity.length() > 0:
 		$AnimatedSprite2D.play()

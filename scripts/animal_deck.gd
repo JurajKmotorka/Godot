@@ -1,6 +1,6 @@
 extends Node
 
-var animal_deck: Array = [1,2,3]  # Stores all animals in the deck
+var animal_deck: Array = [1]  # Stores all animals in the deck
 var selected_animals: Array = []  # Stores the animals chosen to fight (up to 4)
 var max_followers: int = 4  # Maximum number of animals that can follow the player
 

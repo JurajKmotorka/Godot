@@ -121,6 +121,18 @@ var animals = {
 		"moves": {"Bite": 1},
 		"rarity": "rare"
 	},
+	11: {
+		"animal_name": "Goat",
+		"class": "beast",
+		"max_health": [17, 170], # 11.1x scaling
+		"current_health": [17,170],
+		"attack_power": [7, 70],
+		"defense": [5, 50],
+		"speed": [14, 140],
+		"sprite_frames": "res://Art/Animals/Spriteframes/Goat.tres",
+		"moves": {"Bite": 1},
+		"rarity": "common"
+	},
 }
 
 # Function to add an animal to the database
