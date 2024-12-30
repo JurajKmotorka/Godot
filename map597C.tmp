@@ -4512,7 +4512,6 @@ position = Vector2(488, 24)
 z_index = 10
 y_sort_enabled = true
 position = Vector2(-32, 544)
-aquatic = true
 
 [node name="Animal3" parent="AnimalManager" instance=ExtResource("5_vs8oh")]
 z_index = 10
