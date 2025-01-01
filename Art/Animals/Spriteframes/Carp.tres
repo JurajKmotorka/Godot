@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dfpqc5yxtu0ns"]
+
+[ext_resource type="Texture2D" uid="uid://cnpooxljskwyw" path="res://Art/Animals/Carp/Carp-mini.png" id="1_hv4x2"]
+[ext_resource type="Texture2D" uid="uid://dg4grehvlj08d" path="res://Art/Animals/Carp/Carp-mini-walk.png" id="2_mi3kh"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hv4x2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hv4x2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mi3kh")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

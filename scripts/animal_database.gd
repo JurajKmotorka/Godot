@@ -115,7 +115,7 @@ var animals = {
 		"max_health": [22, 244], # 11.1x scaling
 		"current_health": [22,244],
 		"attack_power": [5, 56],
-		"defense": [10, 112],
+		"defense": [12, 132],
 		"speed": [7, 81],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Turtle.tres",
 		"moves": {"Bite": 1},
@@ -144,6 +144,18 @@ var animals = {
 		"sprite_frames": "res://Art/Animals/Spriteframes/Owl.tres",
 		"moves": {"Bite": 1},
 		"rarity": "uncommon"
+	},
+	13: {
+		"animal_name": "Carp",
+		"class": "Fish",
+		"max_health": [18, 180], # 11.1x scaling
+		"current_health": [18,180],
+		"attack_power": [6, 60],
+		"defense": [11, 110],
+		"speed": [9, 90],
+		"sprite_frames": "res://Art/Animals/Spriteframes/Carp.tres",
+		"moves": {"Bite": 1},
+		"rarity": "common"
 	},
 }
 
