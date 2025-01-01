@@ -55,10 +55,17 @@ func _get_effect_message(effect: Dictionary, attacker: Dictionary, defender: Dic
 		"stat_buff":
 			return "%s's %s has been increased!" % [attacker["animal_name"], effect["stat"]]
 		"stat_debuff":
-			return "%s's %s has been reduced!" % [defender["animal_name"], effect["stat"]]
+			if effect.has("stats"):  # Handle multiple stats
+				var debuff_messages = []
+				for stat in effect["stats"]:
+					debuff_messages.append("%s's %s has been reduced!" % [defender["animal_name"], stat])
+				return "\n".join(debuff_messages)  # Combine messages with newlines
+			elif effect.has("stat"):  # Handle single stat (fallback)
+				return "%s's %s has been reduced!" % [defender["animal_name"], effect["stat"]]
 		"heals":
 			return "%s is healed for %d HP!" % [attacker["animal_name"], effect["value"]]
 	return "%s has been affected by %s!" % [attacker["animal_name"], effect["status"]]
+
 
 # Calculate damage
 func calculate_damage(attacker: Dictionary, defender: Dictionary, move: String) -> int:

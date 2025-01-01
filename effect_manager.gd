@@ -45,9 +45,16 @@ func resolve_effects(attacker: Dictionary, defender: Dictionary) -> void:
 				attacker[stat] *= 1.2
 				display_message("%s's %s was increased!" % [attacker["animal_name"], stat])
 			"stat_debuff":
-				var stat = effect["stat"]
-				defender[stat] *= 0.8
-				display_message("%s's %s was reduced!" % [defender["animal_name"], stat])
+				if effect.has("stats"):  # Handle multiple stats
+					for stat in effect["stats"]:
+						if stat in defender:
+							defender[stat] *= 0.8
+							display_message("%s's %s was reduced!" % [defender["animal_name"], stat])
+				elif effect.has("stat"):  # Handle single stat (fallback for legacy)
+					var stat = effect["stat"]
+					if stat in defender:
+						defender[stat] *= 0.8
+						display_message("%s's %s was reduced!" % [defender["animal_name"], stat])
 			"heals":
 				attacker["current_health"] += effect["value"]
 				attacker["current_health"] = min(attacker["max_health"], attacker["current_health"])

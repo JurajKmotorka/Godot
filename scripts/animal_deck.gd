@@ -1,7 +1,7 @@
 extends Node
 
 # Stores all animals in the deck along with their levels and XP
-var animal_deck: Array = [{"id": 1, "level": 1, "xp": 0},{"id": 12, "level": 1, "xp": 0}]  
+var animal_deck: Array = [{"id": 3, "level": 1, "xp": 0},{"id": 12, "level": 1, "xp": 0}]  
 var selected_animals: Array = []  # Stores the animals chosen to fight (up to 4)
 var max_followers: int = 4  # Maximum number of animals that can follow the player
 var base_xp_to_level: int = 10  # Base XP needed to level up

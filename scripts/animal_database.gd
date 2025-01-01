@@ -22,7 +22,7 @@ var animals = {
 		"defense": [6, 61],
 		"speed": [12, 122],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Peacock.tres",
-		"moves": {"Bite": 1, "Peck": 1},
+		"moves": {"Bite": 1, "Peck": 5},
 		"rarity": "uncommon"
 	},
 	3: {
@@ -34,7 +34,7 @@ var animals = {
 		"defense": [10, 106],
 		"speed": [8, 85],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Hippo.tres",
-		"moves": {"Bite": 1, "Enrage": 1},
+		"moves": {"Bite": 1, "Enrage": 1, "Tidal Wave": 5},
 		"rarity": "rare"
 	},
 	4: {

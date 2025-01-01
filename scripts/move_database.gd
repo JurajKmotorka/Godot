@@ -1,5 +1,5 @@
 extends Node
-# Global moves database with additional effects
+# Global moves database
 var moves = {
 	#Offensive:
 	"Bite": {"damage": 10, "precision": 90, "type": "offensive", "effect": null},
@@ -13,14 +13,14 @@ var moves = {
 		"value": 5,
 		"duration": 2
 	}},
-	"Rabies": {"damage": 5, "precision": 40, "type": "offensive", "effect": {
-		"type": "damage_over_time",
-		"value": 20,
-		"duration": 10
-	}},
-	"Peck": {"damage": 10, "precision": 40, "type": "offensive", "effect": {
+	"Rabies": {"damage": 0, "precision": 40, "type": "offensive", "effect": {
 		"type": "damage_over_time",
 		"value": 10,
+		"duration": 100
+	}},
+	"Peck": {"damage": 15, "precision": 60, "type": "offensive", "effect": {
+		"type": "damage_over_time",
+		"value": 8,
 		"duration": 10
 	}},
 	
@@ -34,11 +34,12 @@ var moves = {
 	"Roar": {"damage": 0, "precision": 100, "type": "debuff", "effect": {
 		"type": "stat_debuff",
 		"stat": "attack_power",
-		"duration": 1
+		"duration": 0
 	}},
-	"Tidal Wave": {"damage": 5, "precision": 75, "type": "debuff", "effect": {
+	"Tidal Wave": {"damage": 0, "precision": 75, "type": "debuff", "effect": {
 		"type": "stat_debuff",
-		"stat": "attack_power",
+		"stats": ["attack_power", "defense", "speed"],
+		"duration": 0
 	}},
 	"Poison": {"damage": 10, "precision": 90, "type": "debuff", "effect": {
 		"type": "damage_over_time",
