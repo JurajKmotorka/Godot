@@ -10,9 +10,10 @@ const CLASS_MULTIPLIERS = {
 }
 
 # Function to initialize and scale stats
-func initialize_stats(animal_data: Dictionary, level: int, enemy_class: String = "") -> Dictionary:
+func initialize_stats(animal_data: Dictionary, level: int, animal_id: int, enemy_class: String = "") -> Dictionary:
 	# Initialize and scale base stats
 	var stats = {
+		"id": animal_id,
 		"animal_name": animal_data.get("animal_name"),
 		"level": level,
 		"max_health": _scale_stat(animal_data.get("max_health"), level),
