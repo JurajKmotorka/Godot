@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dmew23l7ia655"]
+
+[ext_resource type="Texture2D" uid="uid://dyrgp54372okf" path="res://Art/Animals/Owl/Owl-mini.png" id="1_c2ict"]
+[ext_resource type="Texture2D" uid="uid://bhvm8hc1r5m5y" path="res://Art/Animals/Owl/Owl-mini-walk.png" id="2_wgtf2"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_c2ict")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_c2ict")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wgtf2")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

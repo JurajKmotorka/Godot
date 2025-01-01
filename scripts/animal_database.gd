@@ -46,7 +46,7 @@ var animals = {
 		"defense": [11, 132],
 		"speed": [9, 108],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Uletif.tres",
-		"moves": {"Bite": 1},
+		"moves": {"Bite": 1, "Saw": 8},
 		"rarity": "legendary"
 	},
 	5: {
@@ -58,7 +58,7 @@ var animals = {
 		"defense": [9, 101],
 		"speed": [10, 112],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Amphisbaena.tres",
-		"moves": {"Bite": 1},
+		"moves": {"Bite": 1, "Slash": 5},
 		"rarity": "epic"
 	},
 	6: {
@@ -94,7 +94,7 @@ var animals = {
 		"defense": [10, 120],
 		"speed": [12, 144],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Scitalis.tres",
-		"moves": {"Bite": 1},
+		"moves": {"Bite": 1, "Slash": 5},
 		"rarity": "legendary"
 	},
 	9: {
@@ -130,8 +130,20 @@ var animals = {
 		"defense": [5, 50],
 		"speed": [14, 140],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Goat.tres",
-		"moves": {"Bite": 1},
+		"moves": {"Bite": 1, "Tackle": 10},
 		"rarity": "common"
+	},
+	12: {
+		"animal_name": "Owl",
+		"class": "bird",
+		"max_health": [12, 120], # 11x scaling
+		"current_health": [12,130],
+		"attack_power": [9, 100],
+		"defense": [5, 50],
+		"speed": [16, 170],
+		"sprite_frames": "res://Art/Animals/Spriteframes/Owl.tres",
+		"moves": {"Bite": 1},
+		"rarity": "uncommon"
 	},
 }
 
