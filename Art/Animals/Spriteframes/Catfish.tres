@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://sb6reljbay7c"]
+
+[ext_resource type="Texture2D" uid="uid://h8aog0dx01a0" path="res://Art/Animals/Catfish/catfish-mini.png" id="1_gfwcn"]
+[ext_resource type="Texture2D" uid="uid://dy5h7cxmj20f7" path="res://Art/Animals/Catfish/catfish-mini-walk.png" id="2_e2t5t"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gfwcn")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gfwcn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_e2t5t")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

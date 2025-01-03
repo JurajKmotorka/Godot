@@ -136,14 +136,14 @@ var animals = {
 	12: {
 		"animal_name": "Owl",
 		"class": "bird",
-		"max_health": [12, 120], # 11x scaling
+		"max_health": [12, 130], # 11x scaling
 		"current_health": [12,130],
 		"attack_power": [9, 100],
 		"defense": [5, 50],
 		"speed": [16, 170],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Owl.tres",
 		"moves": {"Bite": 1},
-		"rarity": "uncommon"
+		"rarity": "rare"
 	},
 	13: {
 		"animal_name": "Carp",
@@ -154,6 +154,18 @@ var animals = {
 		"defense": [11, 110],
 		"speed": [9, 90],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Carp.tres",
+		"moves": {"Bite": 1},
+		"rarity": "common"
+	},
+		14: {
+		"animal_name": "Catfish",
+		"class": "Fish",
+		"max_health": [21, 210], # 11.1x scaling
+		"current_health": [21,210],
+		"attack_power": [6, 60],
+		"defense": [10, 100],
+		"speed": [8, 80],
+		"sprite_frames": "res://Art/Animals/Spriteframes/Catfish.tres",
 		"moves": {"Bite": 1},
 		"rarity": "common"
 	},

@@ -125,7 +125,7 @@ func _check_battle_over() -> void:
 
 # Return to main scene
 func _return_to_main_scene() -> void:
-	var main_scene = load("res://map.tscn").instantiate()
+	var main_scene = load("res://main.tscn").instantiate()
 	get_tree().current_scene.queue_free()
 	get_tree().root.add_child(main_scene)
 	get_tree().current_scene = main_scene
