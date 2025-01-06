@@ -2,17 +2,18 @@ extends Node
 
 const SAVE_FILE_PATH = "user://save_game.json"
 
-# Stores all animals in the deck along with their levels and XP
-var animal_deck: Array = [{"id": 1, "level": 1, "xp": 0}]  
-var selected_animals: Array = []  # Stores the animals chosen to fight (up to 4)
+var animal_deck: Dictionary = {1:{"id":1, "level": 1, "xp": 1}, 2:{"id":2, "level": 1, "xp": 1}}  # Dictionary with {UID: {id, level, xp}}
+var selected_animals: Dictionary = {}  # Similar structure for selected animals
 var max_followers: int = 4  # Maximum number of animals that can follow the player
 var base_xp_to_level: int = 10  # Base XP needed to level up
+var next_uid: int = 2  # Counter to assign unique IDs
 
 # Save the current game state
 func save_game() -> void:
 	var data = {
 		"animal_deck": animal_deck,
-		"selected_animals": selected_animals
+		"selected_animals": selected_animals,
+		"next_uid": next_uid
 	}
 	var file = FileAccess.open(SAVE_FILE_PATH, FileAccess.ModeFlags.WRITE)
 	if file:
@@ -34,9 +35,10 @@ func load_game() -> void:
 			var json = JSON.new()
 			var result = json.parse(json_data)
 			if result == OK:
-				var saved_data = json.data  # Use .data to access the parsed data
-				animal_deck = saved_data.get("animal_deck", [])
-				selected_animals = saved_data.get("selected_animals", [])
+				var saved_data = json.data
+				animal_deck = saved_data.get("animal_deck", {})
+				selected_animals = saved_data.get("selected_animals", {})
+				next_uid = saved_data.get("next_uid")
 				print("Game progress loaded.")
 			else:
 				print("Failed to parse saved data. Error code: %d" % result)
@@ -45,77 +47,74 @@ func load_game() -> void:
 	else:
 		print("Save file not found.")
 
-# Adds an animal to the deck after a battle
-func add_to_deck(animal_id: int) -> void:
-	# Check if the animal is already in the deck
-	for animal in animal_deck:
-		if animal["id"] == animal_id:
-			return  # Animal is already in the deck, no action needed
+# Generates a unique UID for a new animal
+func generate_unique_uid() -> int:
+	# Ensure the next_uid is unique by checking against existing UIDs in the deck
+	var uid = next_uid
+	while animal_deck.has(uid):
+		uid += 1  # Increment UID until it's unique
+		next_uid = uid + 1  # Update next_uid for the next animal
+	return uid
 
-	# Add the new animal with level 1 and 0 XP
-	animal_deck.append({"id": animal_id, "level": 1, "xp": 0})
+# Adds an animal to the deck after a battle
+func add_to_deck(animal_id: int, animal_lvl: int) -> void:
+	var uid = generate_unique_uid()  # Get a unique ID for the new animal
+	animal_deck[uid] = {"id": animal_id, "level": animal_lvl, "xp": 0}
 	
-	# Automatically add the defeated animal to selected followers if there's room
+	# Automatically add to selected followers if there's room
 	if selected_animals.size() < max_followers:
-		selected_animals.append(animal_id)
+		selected_animals[uid] = animal_deck[uid]
 	
-	save_game()  # Save progress
+	save_game()
+
+# Award XP to an animal after a battle
+func gain_xp(uid: int, xp_gained: int) -> void:
+	if animal_deck.has(uid):
+		animal_deck[uid]["xp"] += xp_gained
+		while animal_deck[uid]["xp"] >= xp_to_next_level(animal_deck[uid]["level"]):
+			animal_deck[uid]["xp"] -= xp_to_next_level(animal_deck[uid]["level"])
+			animal_deck[uid]["level"] += 1
+			print("Animal %d leveled up to level %d!" % [uid, animal_deck[uid]["level"]])
+	
+	if selected_animals.has(uid):
+		selected_animals[uid] = animal_deck[uid]
+	
+	save_game()
 
 # Selects animals for the battle (limit: 4)
-func select_for_battle(animal_ids: Array) -> void:
-	if animal_ids.size() > max_followers:
+func select_for_battle(uids: Array) -> void:
+	if uids.size() > max_followers:
 		print("You can only select up to %d animals!" % max_followers)
 		return
-	selected_animals = animal_ids
 	
-	# Automatically fill up to the maximum with default followers if fewer than max are selected
-	if selected_animals.size() < max_followers:
-		choose_default_followers()
+	selected_animals.clear()
+	for uid in uids:
+		if animal_deck.has(uid):
+			selected_animals[uid] = animal_deck[uid]
 	
-	save_game()  # Save progress
+	save_game()
 
 # Retrieves the selected animals for battle
-func get_selected_animals() -> Array:
-	# If no animals are selected manually, return the first animals up to max_followers
+func get_selected_animals() -> Dictionary:
 	if selected_animals.size() == 0:
 		choose_default_followers()
 	return selected_animals
 
 # Automatically chooses the first animals from the deck to fill up to max_followers
 func choose_default_followers() -> void:
-	# Fill selected_animals up to max_followers with animals from the deck
-	for animal in animal_deck:
+	selected_animals.clear()
+	for uid in animal_deck.keys():
 		if selected_animals.size() >= max_followers:
 			break
-		if animal["id"] not in selected_animals:
-			selected_animals.append(animal["id"])
-
-# Award XP to an animal after a battle
-func gain_xp(animal_id: int, xp_gained: int) -> void:
-	for animal in animal_deck:
-		if animal["id"] == animal_id:
-			animal["xp"] += xp_gained
-			print(animal_deck)
-			# Check for level up
-			while animal["xp"] >= xp_to_next_level(animal["level"]):
-				animal["xp"] -= xp_to_next_level(animal["level"])
-				animal["level"] += 1
-				print("Animal %d leveled up to level %d!" % [animal_id, animal["level"]])
-			break
-	
-	save_game()  # Save progress
+		selected_animals[uid] = animal_deck[uid]
 
 # Calculate the XP needed for the next level
 func xp_to_next_level(level: int) -> int:
-	return int(base_xp_to_level * (1.2 ** (level - 1)))  # Increases XP requirement exponentially
+	return int(base_xp_to_level * (1.2 ** (level - 1)))
 
 # Calculate enemy level based on the lowest level in the player's selected party
 func get_enemy_level() -> int:
 	var levels = []
-	for animal_id in selected_animals:
-		for animal in animal_deck:
-			if animal["id"] == animal_id:
-				levels.append(animal["level"])
-	if levels.size() > 0:
-		return levels.min()
-	return 1  # Default to level 1 if no animals are selected
+	for uid in selected_animals.keys():
+		levels.append(selected_animals[uid]["level"])
+	return levels.min() if levels.size() > 0 else 1

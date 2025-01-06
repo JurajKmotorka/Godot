@@ -6,8 +6,8 @@ var max_queue_size = 100  # Max number of positions to track
 var previous_position: Vector2 = Vector2.ZERO  # To track the leader's previous position
 var movement_threshold: float = 1.0  # Minimum distance to consider as movement
 
-# Hardcoded list of animal IDs for the chain
-var animal_ids = AnimalDeck.get_selected_animals()
+# Fetch selected animals from the AnimalDeck
+var selected_animals = AnimalDeck.get_selected_animals()  # Dictionary with {UID: {id, level, xp}}
 var max_followers = 4  # Maximum number of followers
 @export var follower_delay = 20  # Delay steps between each follower
 
@@ -21,11 +21,17 @@ func _ready():
 		print("Leader node is not set. Ensure to call set_leader() before starting.")
 		return
 
-	# Ensure the number of followers doesn't exceed the available animal IDs
-	var follower_count = min(animal_ids.size(), max_followers)
+	# Limit the number of followers to the available selected animals
+	var follower_count = min(selected_animals.size(), max_followers)
 
-	# Dynamically generate followers based on animal IDs
-	for i in range(follower_count):
+	# Dynamically generate followers based on selected animals
+	var uids = selected_animals.keys()  # Get the UIDs of selected animals
+	var i = 0
+	for uid in uids:
+		if i >= follower_count:
+			break
+		
+		# Instantiate and add a follower
 		var follower = preload("res://Characters/following_animal.tscn").instantiate()
 		add_child(follower)
 		
@@ -33,7 +39,9 @@ func _ready():
 		follower.set_position_queue(position_queue, (i + 1) * follower_delay)
 		
 		# Send the animal ID to the follower to load sprite data
-		follower.set_animal_data(animal_ids[i])
+		follower.set_animal_data(selected_animals[uid]["id"])
+		
+		i += 1
 
 func _process(delta):
 	if leader_node:

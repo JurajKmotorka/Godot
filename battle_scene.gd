@@ -4,8 +4,8 @@ extends Node
 @onready var ui_manager = $UIManager
 @onready var stats_manager = $StatsManager
 
-var player_deck = []
-var enemy_deck = []
+var player_deck = []  # Contains player's active animals with stats
+var enemy_deck = []   # Contains enemy animals with stats
 var enemy_id: int
 var player_active_index = 0
 var enemy_active_index = 0
@@ -26,14 +26,15 @@ func set_enemy_data(animal_id: int):
 func _ready():
 	# Initialize player's deck
 	player_deck = []
-	for animal_id in AnimalDeck.get_selected_animals():
-		var animal_data = AnimalDatabase.get_animal(animal_id)
-		var index = AnimalDeck.animal_deck.find({"id": animal_id})
-		var level = AnimalDeck.animal_deck[index]["level"]  # Default to level 1
-		player_deck.append(stats_manager.initialize_stats(animal_data, level, animal_id))
-		print(AnimalDeck.animal_deck[index])
-
-		print(level)
+	var selected_animals = AnimalDeck.get_selected_animals()  # Dictionary with {UID: {id, level, xp}}
+	for uid in selected_animals.keys():
+		var animal_data = AnimalDatabase.get_animal(selected_animals[uid]["id"])
+		var level = selected_animals[uid]["level"]
+	
+	# Debug the type of uid
+		print("UID type: ", typeof(uid))  # This will print the type of uid (should be int)
+		player_deck.append(stats_manager.initialize_stats(animal_data, level, uid))
+		print("Initialized animal with UID %s at level %d" % [uid, level])
 
 	# Wait for enemy data to be ready
 	if enemy_deck.is_empty():
@@ -99,11 +100,12 @@ func _check_battle_over() -> void:
 		if get_next_active_index(enemy_deck, enemy_active_index + 1) == -1:
 			_display_message("You defeated all enemies!")
 			emit_signal("battle_result", true)
-			for animal in enemy_deck:
-				AnimalDeck.add_to_deck(enemy_id)
-
-			# Award XP to the player's active animal
 			AnimalDeck.gain_xp(player_deck[player_active_index]["id"], defeated_enemy_level * 10)  # XP scales with enemy level
+			
+			# Add all enemy animals to the player's deck
+			for enemy_animal in enemy_deck:
+				AnimalDeck.add_to_deck(enemy_animal["id"], enemy_animal["level"])
+
 			is_battle_over = true
 		else:
 			_display_message("Enemy replaced their animal!")

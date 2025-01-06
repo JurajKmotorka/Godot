@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://7t5awmhxdb8i"]
+
+[ext_resource type="Script" path="res://popup_panel.gd" id="1_27gxp"]
+[ext_resource type="Theme" uid="uid://dbvkbwp0l2waq" path="res://Art/kenneyUI-green.tres" id="1_vnkqr"]
+
+[node name="PopupPanel" type="PopupPanel"]
+auto_translate_mode = 1
+size = Vector2i(410, 350)
+visible = true
+theme = ExtResource("1_vnkqr")
+script = ExtResource("1_27gxp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 406.0
+offset_bottom = 346.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Animal Deck"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Close
+"
+
+[node name="SaveChangesButton" type="Button" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Save Changes"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/SaveChangesButton" to="." method="_on_save_changes_button_pressed"]

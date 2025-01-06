@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dk56ofgqc7cb8"]
+[gd_scene load_steps=8 format=3 uid="uid://dk56ofgqc7cb8"]
 
 [ext_resource type="PackedScene" uid="uid://il3gxnnoln8x" path="res://Characters/player.tscn" id="2_s1e14"]
 [ext_resource type="PackedScene" uid="uid://dwvuoyb8s87oi" path="res://map.tscn" id="3_lsp0i"]
+[ext_resource type="PackedScene" uid="uid://7t5awmhxdb8i" path="res://popup_panel.tscn" id="7_7i8qq"]
 [ext_resource type="PackedScene" uid="uid://df0xe3h80c1p3" path="res://animal_chain.tscn" id="13_7j4od"]
 [ext_resource type="Texture2D" uid="uid://mxf7gmkgig3c" path="res://Art/action_button.png" id="14_d4y2n"]
 [ext_resource type="Texture2D" uid="uid://ep1nwxqqcqei" path="res://Art/action_button_pressed.png" id="15_4aqby"]
@@ -46,3 +47,13 @@ action = "ui_accept"
 [node name="Virtual Joystick" parent="UI" instance=ExtResource("16_jskmn")]
 offset_top = -300.0
 offset_bottom = 0.0
+
+[node name="PopupPanel" parent="UI" instance=ExtResource("7_7i8qq")]
+visible = false
+
+[node name="OpenDeckButton" type="Button" parent="UI"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Animal deck"
+
+[connection signal="pressed" from="UI/OpenDeckButton" to="UI/PopupPanel" method="_on_open_deck_button_pressed"]
