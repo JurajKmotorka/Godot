@@ -1,13 +1,10 @@
 extends PopupPanel
 
 @onready var deck_list: VBoxContainer = $HBoxContainer/VBoxContainer
-@onready var save_button: Button = $HBoxContainer/VBoxContainer2/SaveChangesButton
 @onready var close_button: Button = $HBoxContainer/VBoxContainer2/CloseButton
 
 func _ready() -> void:
-	save_button.pressed.connect(_on_save_changes_pressed)
 	close_button.pressed.connect(_on_close_deck_pressed)
-
 # Open the deck popup
 func _on_open_deck_button_pressed() -> void:
 	populate_deck()
@@ -51,11 +48,8 @@ func _on_select_button_pressed(uid: int, button: Button) -> void:
 		print("Max followers reached!")
 
 # Save changes and close the popup
-func _on_save_changes_pressed() -> void:
-	AnimalDeck.save_game()  # Save the updated deck if needed
-	print("Changes saved!")
-	hide()
-
-# Close the popup without saving
 func _on_close_deck_pressed() -> void:
+	AnimalDeck.save_game()  # Save the updated deck if needed
+	get_node("/root/Main/AnimalChain").refresh_followers()
+	print("Changes saved!")
 	hide()

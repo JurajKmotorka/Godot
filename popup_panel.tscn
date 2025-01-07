@@ -37,9 +37,4 @@ layout_mode = 2
 text = "Close
 "
 
-[node name="SaveChangesButton" type="Button" parent="HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-text = "Save Changes"
-
 [connection signal="pressed" from="HBoxContainer/VBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer2/SaveChangesButton" to="." method="_on_save_changes_button_pressed"]

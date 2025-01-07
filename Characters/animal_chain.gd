@@ -6,8 +6,7 @@ var max_queue_size = 100  # Max number of positions to track
 var previous_position: Vector2 = Vector2.ZERO  # To track the leader's previous position
 var movement_threshold: float = 1.0  # Minimum distance to consider as movement
 
-# Fetch selected animals from the AnimalDeck
-var selected_animals = AnimalDeck.get_selected_animals()  # Dictionary with {UID: {id, level, xp}}
+var selected_animals = {}  # Dictionary with {UID: {id, level, xp}}
 var max_followers = 4  # Maximum number of followers
 @export var follower_delay = 20  # Delay steps between each follower
 
@@ -20,28 +19,9 @@ func _ready():
 	if not leader_node:
 		print("Leader node is not set. Ensure to call set_leader() before starting.")
 		return
-
-	# Limit the number of followers to the available selected animals
-	var follower_count = min(selected_animals.size(), max_followers)
-
-	# Dynamically generate followers based on selected animals
-	var uids = selected_animals.keys()  # Get the UIDs of selected animals
-	var i = 0
-	for uid in uids:
-		if i >= follower_count:
-			break
-		
-		# Instantiate and add a follower
-		var follower = preload("res://Characters/following_animal.tscn").instantiate()
-		add_child(follower)
-		
-		# Configure the follower
-		follower.set_position_queue(position_queue, (i + 1) * follower_delay)
-		
-		# Send the animal ID to the follower to load sprite data
-		follower.set_animal_data(selected_animals[uid]["id"])
-		
-		i += 1
+	
+	# Load the initial set of followers
+	refresh_followers()
 
 func _process(delta):
 	if leader_node:
@@ -58,3 +38,34 @@ func _process(delta):
 			
 			# Update the previous position to the current one
 			previous_position = leader_node.global_position
+
+# Refresh the follower nodes based on the current selected animals
+func refresh_followers():
+	# Clear any existing followers
+	for child in get_children():
+		if child.is_in_group("followers"):  # Assuming your follower scenes are grouped
+			child.queue_free()
+	
+	# Reload the selected animals from the AnimalDeck
+	selected_animals = AnimalDeck.get_selected_animals()
+	
+	# Limit the number of followers to the available selected animals
+	var follower_count = min(selected_animals.size(), max_followers)
+	
+	# Dynamically generate followers based on selected animals
+	var uids = selected_animals.keys()
+	var i = 0
+	for uid in uids:
+		if i >= follower_count:
+			break
+		
+		# Instantiate and add a follower
+		var follower = preload("res://Characters/following_animal.tscn").instantiate()
+		follower.add_to_group("followers")  # Optional: group for easier management
+		add_child(follower)
+		
+		# Configure the follower
+		follower.set_position_queue(position_queue, (i + 1) * follower_delay)
+		follower.set_animal_data(selected_animals[uid]["id"])
+		
+		i += 1
