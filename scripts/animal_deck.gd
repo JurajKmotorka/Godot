@@ -2,11 +2,11 @@ extends Node
 
 const SAVE_FILE_PATH = "user://save_game.json"
 
-var animal_deck: Dictionary = {1:{"id":1, "level": 1, "xp": 1}, 2:{"id":2, "level": 1, "xp": 1}}  # Dictionary with {UID: {id, level, xp}}
-var selected_animals: Dictionary = {}  # Similar structure for selected animals
+var animal_deck: Dictionary = { 1: {"id": 1, "level": 1, "xp": 0}, }  # Use integer keys for consistency
+var selected_animals: Dictionary = {}  # Holds selected animals for battle
 var max_followers: int = 4  # Maximum number of animals that can follow the player
 var base_xp_to_level: int = 10  # Base XP needed to level up
-var next_uid: int = 2  # Counter to assign unique IDs
+var next_uid: int = 3  # Start UID from 3 (ensures no conflicts with hardcoded animals)
 
 # Save the current game state
 func save_game() -> void:
@@ -38,7 +38,7 @@ func load_game() -> void:
 				var saved_data = json.data
 				animal_deck = saved_data.get("animal_deck", {})
 				selected_animals = saved_data.get("selected_animals", {})
-				next_uid = saved_data.get("next_uid")
+				next_uid = saved_data.get("next_uid", 3)  # Default to 3 if not saved
 				print("Game progress loaded.")
 			else:
 				print("Failed to parse saved data. Error code: %d" % result)
@@ -47,20 +47,20 @@ func load_game() -> void:
 	else:
 		print("Save file not found.")
 
-# Generates a unique UID for a new animal
-func generate_unique_uid() -> int:
-	# Ensure the next_uid is unique by checking against existing UIDs in the deck
-	var uid = next_uid
-	while animal_deck.has(uid):
-		uid += 1  # Increment UID until it's unique
-		next_uid = uid + 1  # Update next_uid for the next animal
-	return uid
-
 # Adds an animal to the deck after a battle
 func add_to_deck(animal_id: int, animal_lvl: int) -> void:
-	var uid = generate_unique_uid()  # Get a unique ID for the new animal
+	# Ensure the UID is assigned properly
+	var uid = next_uid  # Use the current next_uid
+	next_uid += 1  # Increment only when a new animal is added
+
+	# Check if the UID already exists (hardcoded or stored in data) and adjust if necessary
+	while animal_deck.has(uid):  # Prevent duplication by checking existing UIDs
+		print("Warning: UID %d already exists!" % uid)
+		uid = next_uid  # Adjust to avoid duplication
+		next_uid += 1
+
 	animal_deck[uid] = {"id": animal_id, "level": animal_lvl, "xp": 0}
-	
+
 	# Automatically add to selected followers if there's room
 	if selected_animals.size() < max_followers:
 		selected_animals[uid] = animal_deck[uid]

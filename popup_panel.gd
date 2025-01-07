@@ -20,11 +20,11 @@ func populate_deck() -> void:
 
 	for uid in AnimalDeck.animal_deck.keys():  # Iterate over UIDs instead of directly accessing `animal_deck`
 		var animal = AnimalDeck.animal_deck[uid]
-		var deck_item = create_deck_item(animal)
+		var deck_item = create_deck_item(animal, uid)
 		deck_list.add_child(deck_item)
 
 # Create a UI element for a single animal in the deck
-func create_deck_item(animal: Dictionary) -> Control:
+func create_deck_item(animal: Dictionary, uid: int) -> Control:
 	var container = HBoxContainer.new()
 
 	var name_label = Label.new()
@@ -32,21 +32,20 @@ func create_deck_item(animal: Dictionary) -> Control:
 	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 	var select_button = Button.new()
-	select_button.text = "Deselect" if AnimalDeck.selected_animals.has(str(animal["id"])) else "Select"
-	select_button.pressed.connect(func() -> void: _on_select_button_pressed(animal, select_button))
+	select_button.text = "Deselect" if AnimalDeck.selected_animals.has(uid) else "Select"
+	select_button.pressed.connect(func() -> void: _on_select_button_pressed(uid, select_button))
 
 	container.add_child(name_label)
 	container.add_child(select_button)
 	return container
 
 # Handle selecting or deselecting an animal
-func _on_select_button_pressed(animal: Dictionary, button: Button) -> void:
-	var uid = animal["id"]  # Ensure we're using the integer ID here
-	if AnimalDeck.selected_animals.has(str(uid)):  # Store it as a string in `selected_animals` but use integer for processing
-		AnimalDeck.selected_animals.erase(str(uid))
+func _on_select_button_pressed(uid: int, button: Button) -> void:
+	if AnimalDeck.selected_animals.has(uid):
+		AnimalDeck.selected_animals.erase(uid)
 		button.text = "Select"
 	elif AnimalDeck.selected_animals.size() < AnimalDeck.max_followers:
-		AnimalDeck.selected_animals[str(uid)] = animal  # Store as a string in `selected_animals`
+		AnimalDeck.selected_animals[uid] = AnimalDeck.animal_deck[uid]  # Use the uid to access the animal data
 		button.text = "Deselect"
 	else:
 		print("Max followers reached!")
