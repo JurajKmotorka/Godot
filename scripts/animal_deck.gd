@@ -17,7 +17,7 @@ func save_game() -> void:
 	}
 	var file = FileAccess.open(SAVE_FILE_PATH, FileAccess.ModeFlags.WRITE)
 	if file:
-		var json_data = JSON.new().stringify(data)
+		var json_data = JSON.stringify(data)  # Corrected call
 		file.store_string(json_data)
 		file.close()
 		print("Game progress saved.")
@@ -36,9 +36,17 @@ func load_game() -> void:
 			var result = json.parse(json_data)
 			if result == OK:
 				var saved_data = json.data
-				animal_deck = saved_data.get("animal_deck", {})
-				selected_animals = saved_data.get("selected_animals", {})
-				next_uid = saved_data.get("next_uid", 3)  # Default to 3 if not saved
+				
+				# Convert keys back to integers
+				animal_deck.clear()
+				for key in saved_data.get("animal_deck", {}).keys():
+					animal_deck[int(key)] = saved_data["animal_deck"][key]
+				
+				selected_animals.clear()
+				for key in saved_data.get("selected_animals", {}).keys():
+					selected_animals[int(key)] = saved_data["selected_animals"][key]
+				
+				next_uid = int(saved_data.get("next_uid", 3))  # Default to 3 if not saved
 				print("Game progress loaded.")
 			else:
 				print("Failed to parse saved data. Error code: %d" % result)
@@ -46,6 +54,7 @@ func load_game() -> void:
 			print("Failed to load game progress.")
 	else:
 		print("Save file not found.")
+
 
 # Adds an animal to the deck after a battle
 func add_to_deck(animal_id: int, animal_lvl: int) -> void:
