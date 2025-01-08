@@ -62,7 +62,7 @@ func _get_effect_message(effect: Dictionary, attacker: Dictionary, defender: Dic
 				return "\n".join(debuff_messages)  # Combine messages with newlines
 			elif effect.has("stat"):  # Handle single stat (fallback)
 				return "%s's %s has been reduced!" % [defender["animal_name"], effect["stat"]]
-		"heals":
+		"heal":
 			return "%s is healed for %d HP!" % [attacker["animal_name"], effect["value"]]
 	return "%s has been affected by %s!" % [attacker["animal_name"], effect["status"]]
 

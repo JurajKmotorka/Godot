@@ -6,7 +6,7 @@ var animal_deck: Dictionary = { 1: {"id": 1, "level": 1, "xp": 0}, }  # Use inte
 var selected_animals: Dictionary = {}  # Holds selected animals for battle
 var max_followers: int = 4  # Maximum number of animals that can follow the player
 var base_xp_to_level: int = 10  # Base XP needed to level up
-var next_uid: int = 3  # Start UID from 3 (ensures no conflicts with hardcoded animals)
+var next_uid: int = 3  # Start UID from 3 
 
 # Save the current game state
 func save_game() -> void:

@@ -10,7 +10,7 @@ var animals = {
 		"defense": [8, 80],
 		"speed": [10, 100],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Dog.tres",
-		"moves": {"Bite": 1, "Bark": 1, "Rabies": 20},
+		"moves": {"Bite": 1, "Bark": 1, "Howl":5, "Chomp":7, "Rabies": 20, "Maul": 25, "Bone Breaker": 40},
 		"rarity": "common"
 	},
 	2: {
@@ -22,7 +22,7 @@ var animals = {
 		"defense": [6, 61],
 		"speed": [12, 122],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Peacock.tres",
-		"moves": {"Bite": 1, "Peck": 5},
+		"moves": {"Bite": 1, "Quick Reflexes":1, "Peck": 5, "Regenerate":12, "Tail Feathers": 15, "Fury Peck":35},
 		"rarity": "uncommon"
 	},
 	3: {
@@ -34,7 +34,7 @@ var animals = {
 		"defense": [10, 106],
 		"speed": [8, 85],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Hippo.tres",
-		"moves": {"Bite": 1, "Enrage": 1, "Tidal Wave": 5},
+		"moves": {"Bite": 1, "Enrage": 5, "Tidal Wave": 10, "Trample": 18, "Aquatic Slam":24},
 		"rarity": "rare"
 	},
 	4: {
@@ -46,7 +46,7 @@ var animals = {
 		"defense": [11, 132],
 		"speed": [9, 108],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Uletif.tres",
-		"moves": {"Bite": 1, "Saw": 8},
+		"moves": {"Bite": 1, "Saw": 8, "Hydro Slash": 20, "Bone Breaker":30},
 		"rarity": "legendary"
 	},
 	5: {
@@ -58,7 +58,7 @@ var animals = {
 		"defense": [9, 101],
 		"speed": [10, 112],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Amphisbaena.tres",
-		"moves": {"Bite": 1, "Slash": 5},
+		"moves": {"Bite": 1, "Slash": 5,"Venomous Bite": 25, "Maul":32},
 		"rarity": "epic"
 	},
 	6: {
@@ -70,7 +70,7 @@ var animals = {
 		"defense": [10, 112],
 		"speed": [9, 101],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Abides.tres",
-		"moves": {"Bite": 1},
+		"moves": {"Bite": 1, "Tidal Wave":7, "Water Shield": 20, "Hydro Slash":26},
 		"rarity": "epic"
 	},
 	7: {
@@ -82,7 +82,7 @@ var animals = {
 		"defense": [15, 150],
 		"speed": [4, 40],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Snail.tres",
-		"moves": {"Mucus": 1},
+		"moves": {"Mucus": 1, "Shell Defense": 4, "Spit":8, "Restoration": 18, "Radulla":24 },
 		"rarity": "common"
 	},
 	8: {
@@ -94,7 +94,7 @@ var animals = {
 		"defense": [10, 120],
 		"speed": [12, 144],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Scitalis.tres",
-		"moves": {"Bite": 1, "Slash": 5},
+		"moves": {"Bite": 1, "Slash": 5, "Tail Whip": 15, "Glitter": 22, "Poison Strike":28 },
 		"rarity": "legendary"
 	},
 	9: {
@@ -106,7 +106,7 @@ var animals = {
 		"defense": [7, 70],
 		"speed": [14, 140],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Cat.tres",
-		"moves": {"Bite": 1},
+		"moves": {"Bite": 1, "Scratch": 3, "Purr":8, "Claw Swipe":22},
 		"rarity": "common"
 	},
 	10: {
@@ -118,31 +118,31 @@ var animals = {
 		"defense": [12, 132],
 		"speed": [7, 81],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Turtle.tres",
-		"moves": {"Bite": 1},
+		"moves": {"Bite": 1, "Shell Defense": 8, "Chomp": 14, "Regenerate":22, "Trample":44},
 		"rarity": "rare"
 	},
 	11: {
 		"animal_name": "Goat",
-		"class": "beast",
+		"class": "Beast",
 		"max_health": [17, 170], # 11.1x scaling
 		"current_health": [17,170],
 		"attack_power": [7, 70],
 		"defense": [5, 50],
 		"speed": [14, 140],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Goat.tres",
-		"moves": {"Bite": 1, "Tackle": 10},
+		"moves": {"Bite": 1, "Spit":6, "Tackle": 14, "Fortify":20},
 		"rarity": "common"
 	},
 	12: {
 		"animal_name": "Owl",
-		"class": "bird",
+		"class": "Bird",
 		"max_health": [12, 130], # 11x scaling
 		"current_health": [12,130],
 		"attack_power": [9, 100],
 		"defense": [5, 50],
 		"speed": [16, 170],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Owl.tres",
-		"moves": {"Bite": 1},
+		"moves": {"Bite": 1, "Peck": 5, "Tail Feathers":14, "Stealth Strike":24},
 		"rarity": "rare"
 	},
 	13: {
@@ -154,10 +154,10 @@ var animals = {
 		"defense": [11, 110],
 		"speed": [9, 90],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Carp.tres",
-		"moves": {"Bite": 1},
+		"moves": {"Bite": 1, "Splash": 5, "Hydro Slash": 32},
 		"rarity": "common"
 	},
-		14: {
+	14: {
 		"animal_name": "Catfish",
 		"class": "Fish",
 		"max_health": [21, 210], # 11.1x scaling
@@ -166,7 +166,7 @@ var animals = {
 		"defense": [10, 100],
 		"speed": [8, 80],
 		"sprite_frames": "res://Art/Animals/Spriteframes/Catfish.tres",
-		"moves": {"Bite": 1},
+		"moves": {"Bite": 1, "Water Shield": 5, "Tackle": 18, "Chomp":24},
 		"rarity": "common"
 	},
 }
