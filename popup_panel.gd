@@ -1,7 +1,7 @@
 extends PopupPanel
 
-@onready var deck_list: VBoxContainer = $HBoxContainer/VBoxContainer
-@onready var close_button: Button = $HBoxContainer/VBoxContainer2/CloseButton
+@onready var deck_list: VBoxContainer = $VBoxContainer/ScrollContainer/VBoxContainer
+@onready var close_button: Button = $VBoxContainer/CloseButton
 
 func _ready() -> void:
 	close_button.pressed.connect(_on_close_deck_pressed)
@@ -15,7 +15,7 @@ func populate_deck() -> void:
 	for child in deck_list.get_children():  # Clear previous entries
 		child.queue_free()
 
-	for uid in AnimalDeck.animal_deck.keys():  # Iterate over UIDs instead of directly accessing `animal_deck`
+	for uid in AnimalDeck.animal_deck.keys():  # Iterate over UIDs instead of directly accessing animal_deck
 		var animal = AnimalDeck.animal_deck[uid]
 		var deck_item = create_deck_item(animal, uid)
 		deck_list.add_child(deck_item)
@@ -25,7 +25,7 @@ func create_deck_item(animal: Dictionary, uid: int) -> Control:
 	var container = HBoxContainer.new()
 
 	var name_label = Label.new()
-	name_label.text = "ID: %d | Level: %d | XP: %d" % [animal["id"], animal["level"], animal["xp"]]
+	name_label.text = "#%d | %s | Level: %d | XP: %d" % [animal["id"], AnimalDatabase.animals[animal["id"]]["animal_name"], animal["level"], animal["xp"]]
 	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 	var select_button = Button.new()

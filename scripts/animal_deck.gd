@@ -2,7 +2,28 @@ extends Node
 
 const SAVE_FILE_PATH = "user://save_game.json"
 
-var animal_deck: Dictionary = { 1: {"id": 1, "level": 1, "xp": 0}, }  # Use integer keys for consistency
+var animal_deck: Dictionary = {
+	1: {"id": 1, "level": 5, "xp": 120},
+	2: {"id": 2, "level": 3, "xp": 60},
+	3: {"id": 3, "level": 7, "xp": 250},
+	4: {"id": 4, "level": 2, "xp": 30},
+	5: {"id": 5, "level": 8, "xp": 300},
+	6: {"id": 6, "level": 4, "xp": 80},
+	7: {"id": 7, "level": 6, "xp": 180},
+	8: {"id": 8, "level": 5, "xp": 150},
+	9: {"id": 9, "level": 1, "xp": 0},
+	10: {"id": 10, "level": 9, "xp": 400},
+	11: {"id": 1, "level": 5, "xp": 120},
+	12: {"id": 2, "level": 3, "xp": 60},
+	13: {"id": 3, "level": 7, "xp": 250},
+	14: {"id": 4, "level": 2, "xp": 30},
+	15: {"id": 5, "level": 8, "xp": 300},
+	16: {"id": 6, "level": 4, "xp": 80},
+	17: {"id": 7, "level": 6, "xp": 180},
+	18: {"id": 8, "level": 5, "xp": 150},
+	19: {"id": 9, "level": 1, "xp": 0},
+	20: {"id": 10, "level": 9, "xp": 400},
+}
 var selected_animals: Dictionary = {}  # Holds selected animals for battle
 var max_followers: int = 4  # Maximum number of animals that can follow the player
 var base_xp_to_level: int = 10  # Base XP needed to level up

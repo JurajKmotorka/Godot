@@ -1,0 +1,82 @@
+[gd_scene load_steps=3 format=3 uid="uid://7t5awmhxdb8i"]
+
+[ext_resource type="Script" path="res://popup_panel.gd" id="1_27gxp"]
+[ext_resource type="Theme" uid="uid://dbvkbwp0l2waq" path="res://Art/kenneyUI-green.tres" id="1_vnkqr"]
+
+[node name="PopupPanel" type="PopupPanel"]
+auto_translate_mode = 1
+size = Vector2i(410, 100)
+visible = true
+theme = ExtResource("1_vnkqr")
+script = ExtResource("1_27gxp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Animal Deck"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "label
+"
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "label
+"
+
+[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "label
+"
+
+[node name="Label4" type="Label" parent="HBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "label
+"
+
+[node name="Label5" type="Label" parent="HBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "label
+"
+
+[node name="Label6" type="Label" parent="HBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "label
+"
+
+[node name="Label7" type="Label" parent="HBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "label
+"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Close
+"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
