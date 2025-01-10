@@ -1,0 +1,173 @@
+[gd_scene load_steps=12 format=3 uid="uid://d3bb5i78ke3yo"]
+
+[ext_resource type="Script" path="res://battle_scene.gd" id="1_s5102"]
+[ext_resource type="Script" path="res://stats_manager.gd" id="2_dhocc"]
+[ext_resource type="Script" path="res://ui_manager.gd" id="2_taeci"]
+[ext_resource type="Script" path="res://move_manager.gd" id="3_fihna"]
+[ext_resource type="Texture2D" uid="uid://bplc4482w31bn" path="res://Art/paper-background.webp" id="3_kydf0"]
+[ext_resource type="Theme" uid="uid://dbvkbwp0l2waq" path="res://Art/kenneyUI-green.tres" id="3_pd1da"]
+[ext_resource type="Script" path="res://effect_manager.gd" id="4_sejcs"]
+[ext_resource type="SpriteFrames" uid="uid://d0uftirfpexm" path="res://Art/Animals/Spriteframes/Scitalis.tres" id="6_74xoa"]
+[ext_resource type="SpriteFrames" uid="uid://brx6c3own08pi" path="res://Art/Animals/Spriteframes/Dog.tres" id="7_ktda8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b5yvd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w8vax"]
+font_size = 30
+
+[node name="BattleManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_s5102")
+
+[node name="background" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.002
+anchor_bottom = 0.999
+offset_right = -0.560059
+offset_bottom = -0.280029
+texture = ExtResource("3_kydf0")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="UIManager" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 50.0
+offset_right = -91.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_pd1da")
+alignment = 1
+script = ExtResource("2_taeci")
+
+[node name="Panel" type="Panel" parent="UIManager"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_b5yvd")
+
+[node name="ButtonContainer" type="HBoxContainer" parent="UIManager/Panel"]
+z_index = 10
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.905
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.0999756
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="UIManager/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_w8vax")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="UIManager/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.89
+anchor_right = 1.0
+anchor_bottom = 0.89
+offset_top = -50.2001
+offset_bottom = -0.200073
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+show_percentage = false
+
+[node name="Label" type="Label" parent="UIManager/Panel/ProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar2" type="ProgressBar" parent="UIManager/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+show_percentage = false
+
+[node name="Label" type="Label" parent="UIManager/Panel/ProgressBar2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerPanel" type="Panel" parent="UIManager/Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 109.0
+offset_bottom = 109.0
+grow_vertical = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UIManager/Panel/PlayerPanel"]
+rotation = -0.261799
+scale = Vector2(2.06641, 2.06641)
+sprite_frames = ExtResource("7_ktda8")
+animation = &"idle"
+
+[node name="EnemyPanel" type="Panel" parent="UIManager/Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -318.0
+offset_right = -40.0
+offset_bottom = -318.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="UIManager/Panel/EnemyPanel"]
+rotation = -0.261799
+scale = Vector2(1.97266, 1.97266)
+sprite_frames = ExtResource("6_74xoa")
+animation = &"idle"
+flip_h = true
+
+[node name="StatsManager" type="Node" parent="."]
+script = ExtResource("2_dhocc")
+
+[node name="MoveManager" type="Node" parent="."]
+script = ExtResource("3_fihna")
+
+[node name="EffectManager" type="Node" parent="."]
+script = ExtResource("4_sejcs")
