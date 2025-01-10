@@ -3,8 +3,13 @@ extends VBoxContainer
 # UI References
 @onready var player_health_bar = $Panel/ProgressBar
 @onready var player_health_label = $Panel/ProgressBar/Label
+@onready var player_info_label = $Panel/ProgressBar/PlayerInfo
+
 @onready var enemy_health_bar = $Panel/ProgressBar2
 @onready var enemy_health_label = $Panel/ProgressBar2/Label
+@onready var enemy_info_label = $Panel/ProgressBar2/EnemyInfo
+
+
 
 @onready var player_sprite = $Panel/PlayerPanel/AnimatedSprite2D
 @onready var enemy_sprite = $Panel/EnemyPanel/AnimatedSprite2D2
@@ -22,10 +27,14 @@ func setup_ui(player_data: Dictionary, enemy_data: Dictionary) -> void:
 	player_health_bar.max_value = player_data["max_health"]
 	player_health_bar.value = player_data["current_health"]
 	player_health_label.text = "%d/%d" % [player_data["current_health"], player_data["max_health"]]
+	player_info_label.text = "%s (lvl%d)" % [player_data["animal_name"], player_data["level"]]
 	
 	enemy_health_bar.max_value = enemy_data["max_health"]
 	enemy_health_bar.value = enemy_data["current_health"]
 	enemy_health_label.text = "%d/%d" % [enemy_data["current_health"], enemy_data["max_health"]]
+	enemy_info_label.text = "%s (lvl%d)" % [enemy_data["animal_name"], enemy_data["level"]]
+
+	
 
 	# Load sprites
 	player_sprite.sprite_frames = load(player_data["sprite_frames"])
