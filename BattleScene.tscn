@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d3bb5i78ke3yo"]
+[gd_scene load_steps=12 format=3 uid="uid://d3bb5i78ke3yo"]
 
 [ext_resource type="Script" path="res://battle_scene.gd" id="1_s5102"]
 [ext_resource type="Script" path="res://stats_manager.gd" id="2_dhocc"]
@@ -7,16 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://bplc4482w31bn" path="res://Art/paper-background.webp" id="3_kydf0"]
 [ext_resource type="Theme" uid="uid://dbvkbwp0l2waq" path="res://Art/kenneyUI-green.tres" id="3_pd1da"]
 [ext_resource type="Script" path="res://effect_manager.gd" id="4_sejcs"]
-[ext_resource type="Theme" uid="uid://m7m77bv87xin" path="res://Art/kenneyUI.tres" id="4_wjq8k"]
+[ext_resource type="SpriteFrames" uid="uid://d0uftirfpexm" path="res://Art/Animals/Spriteframes/Scitalis.tres" id="6_74xoa"]
+[ext_resource type="SpriteFrames" uid="uid://brx6c3own08pi" path="res://Art/Animals/Spriteframes/Dog.tres" id="7_ktda8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b5yvd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w8vax"]
 font_size = 30
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_mewgl"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_qq4mb"]
 
 [node name="BattleManager" type="Control"]
 layout_mode = 3
@@ -47,7 +44,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 100.0
+offset_top = 50.0
 offset_right = -91.0
+offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_pd1da")
@@ -63,48 +62,42 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_b5yvd")
 z_index = 10
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.00183655
-anchor_top = 0.771889
-anchor_right = 0.531384
-anchor_bottom = 0.869111
-offset_top = 0.23999
-offset_right = 0.322998
-offset_bottom = 0.23999
+anchor_top = 0.905
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.0999756
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 theme_override_constants/separation = 20
-metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="UIManager/Panel"]
-layout_mode = 0
-offset_right = 1148.0
-offset_bottom = 205.0
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
 label_settings = SubResource("LabelSettings_w8vax")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HealthBarContainer" type="HBoxContainer" parent="UIManager/Panel"]
-z_index = 10
+[node name="ProgressBar" type="ProgressBar" parent="UIManager/Panel"]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = -1
+anchor_top = 0.89
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -83.0
-offset_bottom = -25.0
+anchor_bottom = 0.89
+offset_top = -50.2001
+offset_bottom = -0.200073
 grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("4_wjq8k")
-theme_override_constants/separation = 100
-alignment = 1
-
-[node name="ProgressBar" type="ProgressBar" parent="UIManager/Panel/HealthBarContainer"]
-layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 show_percentage = false
 
-[node name="Label" type="Label" parent="UIManager/Panel/HealthBarContainer/ProgressBar"]
+[node name="Label" type="Label" parent="UIManager/Panel/ProgressBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,13 +107,17 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ProgressBar2" type="ProgressBar" parent="UIManager/Panel/HealthBarContainer"]
-layout_mode = 2
+[node name="ProgressBar2" type="ProgressBar" parent="UIManager/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 show_percentage = false
 
-[node name="Label" type="Label" parent="UIManager/Panel/HealthBarContainer/ProgressBar2"]
+[node name="Label" type="Label" parent="UIManager/Panel/ProgressBar2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -130,14 +127,41 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="UIManager"]
-position = Vector2(785, 327)
-sprite_frames = SubResource("SpriteFrames_mewgl")
+[node name="PlayerPanel" type="Panel" parent="UIManager/Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 109.0
+offset_bottom = 109.0
+grow_vertical = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UIManager/Panel/PlayerPanel"]
+rotation = -0.261799
+scale = Vector2(2.06641, 2.06641)
+sprite_frames = ExtResource("7_ktda8")
+animation = &"idle"
+
+[node name="EnemyPanel" type="Panel" parent="UIManager/Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -318.0
+offset_right = -40.0
+offset_bottom = -318.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="UIManager/Panel/EnemyPanel"]
+rotation = -0.261799
+scale = Vector2(1.97266, 1.97266)
+sprite_frames = ExtResource("6_74xoa")
+animation = &"idle"
 flip_h = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UIManager"]
-position = Vector2(249, 462)
-sprite_frames = SubResource("SpriteFrames_qq4mb")
 
 [node name="StatsManager" type="Node" parent="."]
 script = ExtResource("2_dhocc")

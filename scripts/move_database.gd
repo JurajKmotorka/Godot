@@ -41,6 +41,11 @@ var moves = {
 		"stat": "defense",
 		"duration": 0
 	}},
+	"Splash": {"damage": 10, "precision": 90, "type": "offensive", "effect": {
+		"type": "stat_debuff",
+		"stat": "speed",
+		"duration": 0
+		}},
 	"Stealth Strike": {"damage": 24, "precision": 98, "type": "offensive", "effect": {
 		"type": "stat_buff",
 		"stat": "speed",

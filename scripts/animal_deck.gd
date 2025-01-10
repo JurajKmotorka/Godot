@@ -3,7 +3,7 @@ extends Node
 const SAVE_FILE_PATH = "user://save_game.json"
 
 var animal_deck: Dictionary = {
-	1: {"id": 3, "level": 30, "xp": 0},
+	1: {"id": 13, "level": 30, "xp": 0},
 }
 var selected_animals: Dictionary = {}  # Holds selected animals for battle
 var max_followers: int = 1  # Maximum number of animals that can follow the player
